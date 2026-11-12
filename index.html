@@ -136,6 +136,22 @@
     .follow-panel { display: grid; grid-template-columns: .72fr 1.28fr; gap: 24px; align-items: start; }
     .follow-panel h3 { font-size: 25px; }
     .follow-panel .lead { margin-top: 8px; color: var(--muted); }
+    .ai-layout { display: grid; grid-template-columns: .82fr 1.18fr; gap: 18px; align-items: start; }
+    .ai-tabs { display: grid; gap: 8px; }
+    .ai-tab { text-align: left; border: 1px solid var(--line); background: var(--panel); border-radius: 14px; padding: 16px 18px; cursor: pointer; }
+    .ai-tab:hover, .ai-tab.active { border-color: var(--blue); background: var(--blue-soft); }
+    .ai-tab strong { display: block; font-size: 17px; }
+    .ai-tab span { display: block; margin-top: 4px; color: var(--muted); font-size: 13px; }
+    .ai-detail { min-height: 278px; padding: 26px; border-radius: var(--radius); background: var(--panel); box-shadow: var(--shadow); }
+    .ai-detail h3 { font-size: 25px; }
+    .ai-detail p { margin-top: 10px; color: var(--muted); }
+    .ai-detail ul { margin: 16px 0 0; padding-left: 20px; color: var(--muted); }
+    .ai-detail li + li { margin-top: 7px; }
+    .ai-questions { margin-top: 22px; }
+    .ai-question { padding: 18px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); }
+    .ai-question .label { color: var(--blue); font-size: 12px; font-weight: 700; }
+    .ai-question h3 { margin-top: 6px; font-size: 16px; line-height: 1.4; }
+    .ai-question p { margin-top: 7px; color: var(--muted); font-size: 13px; }
     .checklist { display: grid; gap: 10px; }
     .check { display: grid; grid-template-columns: 22px 1fr; gap: 10px; align-items: start; padding: 13px 15px; border-radius: 12px; background: var(--panel); border: 1px solid var(--line); }
     .check-mark { width: 20px; height: 20px; display: grid; place-items: center; border-radius: 50%; color: #fff; background: var(--green); font-size: 12px; }
@@ -152,6 +168,7 @@
     .mobile-only { display: none; }
     @media (max-width: 880px) {
       .hero, .model-layout, .follow-panel { grid-template-columns: 1fr; }
+      .ai-layout { grid-template-columns: 1fr; }
       .hero { padding-top: 52px; gap: 28px; }
       .grid-4 { grid-template-columns: repeat(2, 1fr); }
       .evidence { grid-template-columns: repeat(2, 1fr); }
@@ -164,7 +181,7 @@
       .hero-lede { font-size: 17px; }
       .section-heading { display: block; }
       .section-heading p { margin-top: 10px; }
-      .grid-4, .grid-3, .premise, .question-grid, .evidence { grid-template-columns: 1fr; }
+      .grid-4, .grid-3, .premise, .question-grid, .evidence, .ai-questions { grid-template-columns: 1fr; }
       .route { grid-template-columns: 1fr; gap: 16px; }
       .route::before { top: 9%; bottom: 9%; left: 19px; width: 2px; height: auto; right: auto; }
       .route-step { display: grid; grid-template-columns: 38px 1fr; gap: 14px; text-align: left; align-items: center; }
@@ -183,6 +200,7 @@
         <button data-target="questions">研究问题</button>
         <button data-target="model">模型设计</button>
         <button data-target="followup">随访策略</button>
+        <button data-target="ai-followup">AI 随访端</button>
         <button data-target="roadmap">路线图</button>
         <button data-target="evidence">证据</button>
       </nav>
@@ -328,6 +346,31 @@
       <div class="follow-panel" id="followPanel" aria-live="polite"></div>
     </section>
 
+    <section id="ai-followup">
+      <div class="section-heading">
+        <div><div class="eyebrow">AI patient follow-up</div><h2>把随访从“到点提醒”升级为动态研究平台。</h2></div>
+        <p>AI 患者端的增量不只是聊天，而是连续收集、风险分层、任务闭环和真实世界证据沉淀。</p>
+      </div>
+      <div class="callout" style="background:linear-gradient(120deg, #24516e, #347b9f);">
+        <strong>AI 的角色：发现变化、组织任务、连接团队。</strong>
+        <p>它可以辅助识别需要关注的人和问题，但不能未经验证地诊断复发、自动修改治疗方案或替代医生的高风险决策。</p>
+      </div>
+      <div class="ai-layout">
+        <div class="ai-tabs" role="tablist" aria-label="AI 随访端能力">
+          <button class="ai-tab active" data-ai="patient" role="tab" aria-selected="true"><strong>患者端能力</strong><span>连续采集比年度问诊更多的变化</span></button>
+          <button class="ai-tab" data-ai="triage" role="tab" aria-selected="false"><strong>风险分层与分诊</strong><span>把异常变化送到正确的团队</span></button>
+          <button class="ai-tab" data-ai="research" role="tab" aria-selected="false"><strong>研究数据引擎</strong><span>把随访过程变成纵向证据</span></button>
+          <button class="ai-tab" data-ai="safety" role="tab" aria-selected="false"><strong>安全与公平</strong><span>把边界、误报和数据治理纳入研究</span></button>
+        </div>
+        <div class="ai-detail" id="aiPanel" aria-live="polite"></div>
+      </div>
+      <div class="grid-3 ai-questions">
+        <article class="ai-question"><div class="label">研究问题 01</div><h3>AI 随访能否减少失访并缩短问题升级时间？</h3><p>以 stepped-wedge 或务实性试验比较触达率、依从性、转诊时效、间期就诊和患者负担。</p></article>
+        <article class="ai-question"><div class="label">研究问题 02</div><h3>哪些年轻患者真正从智能随访中获益？</h3><p>研究年龄、亚型、遗传风险、心理负担、数字可及性和社会支持对干预效果的异质性。</p></article>
+        <article class="ai-question"><div class="label">研究问题 03</div><h3>患者自报信号能否安全预测支持性照护需求？</h3><p>先从疼痛、营养、睡眠、焦虑、恐惧复发和生育咨询需求开始，避免未经验证地直接预测复发。</p></article>
+      </div>
+    </section>
+
     <section id="evidence">
       <div class="section-heading">
         <div><div class="eyebrow">Evidence base</div><h2>研究地图背后的关键证据。</h2></div>
@@ -363,7 +406,7 @@
       </div>
     </section>
 
-    <footer>资料检索截至 2026 年 11 月 12 日。当前页面用于研究设计讨论；模型、筛查频率和临床路径仍需在本土队列中完成外部验证和影响评价。</footer>
+    <footer>资料检索截至 2026 年 11 月 12 日。当前页面用于研究设计讨论；模型、筛查频率、AI 随访和临床路径仍需在本土队列中完成外部验证和影响评价。</footer>
   </main>
 
   <script>
@@ -403,6 +446,29 @@
       }
     };
 
+    const aiContent = {
+      patient: {
+        title: '患者端能力：连续、结构化、低负担',
+        text: '把患者从“年度随访时才回忆过去”转变为“在日常生活中持续提供可解释信号”。患者端不是堆功能，而是围绕年轻患者的真实需求建立最小、可持续的采集闭环。',
+        items: ['每日/每周采集症状、体重、睡眠、活动、情绪、用药和生育计划', '用对话式交互把自由文本结构化为可分析的患者报告结局（PRO）', '根据患者负担动态调整频率，避免过度提醒和数字化疲劳']
+      },
+      triage: {
+        title: '风险分层与分诊：从提醒到闭环',
+        text: 'AI 可以把“变化”翻译成下一步任务：哪些情况需要护士回拨，哪些需要营养/心理/生殖团队，哪些可以进入常规随访。核心是透明规则、人工复核和可追踪的升级链。',
+        items: ['将症状、既往风险、近期治疗阶段和未完成任务合并为动态优先级', '对红旗信号触发人工复核，不直接输出复发诊断或改变治疗方案', '记录触发—响应—转诊—结局，研究告警准确性、延迟和告警疲劳']
+      },
+      research: {
+        title: '研究数据引擎：让随访过程本身成为证据',
+        text: '相比一次性病历，AI 随访端能生成连续时间序列，支持轨迹研究、实施科学、异质性治疗效应和真实世界成本评价。',
+        items: ['形成症状、心理、生育、体重/营养和依从性的纵向数据集', '构建支持性照护需求模型，并进行时间外、地域外和亚组验证', '把患者端触达、人工响应、转诊和结局连接起来，评价真实临床影响']
+      },
+      safety: {
+        title: '安全与公平：必须成为研究终点',
+        text: 'AI 患者端越靠近医疗决策，越需要把误报、漏报、隐私和数字鸿沟显式纳入设计。模型性能不是唯一评价标准。',
+        items: ['按年龄、教育、地区、设备条件、语言表达和社会支持评估可及性差异', '记录模型版本、输入缺失、人工覆核、错误分诊和不良事件', '预先定义“不能自动做什么”：不自动诊断、不自动改药、不替代医生告知']
+      }
+    };
+
     const routeContent = [
       '<strong>0–3 个月 · 数据审计：</strong>固定人群、时间起点、主要结局、缺失机制和随访窗口；先判断病例库能支持预后、遗传还是患者报告结局。',
       '<strong>3–12 个月 · 外部验证：</strong>在本地未患癌或高危门诊队列中验证现有模型，报告校准截距、斜率、观察/期望比、Brier score 和决策曲线。',
@@ -418,8 +484,13 @@
       const item = followContent[key];
       document.querySelector('#followPanel').innerHTML = '<div><h3>' + item.title + '</h3><p class="lead">' + item.lead + '</p></div><div class="checklist">' + item.items.map(x => '<div class="check"><span class="check-mark">✓</span><span>' + x + '</span></div>').join('') + '</div>';
     }
+    function renderAI(key) {
+      const item = aiContent[key];
+      document.querySelector('#aiPanel').innerHTML = '<h3>' + item.title + '</h3><p>' + item.text + '</p><ul>' + item.items.map(x => '<li>' + x + '</li>').join('') + '</ul>';
+    }
     renderModel('incidence');
     renderFollow('unaffected');
+    renderAI('patient');
     document.querySelector('#routePanel').innerHTML = routeContent[0];
 
     document.querySelectorAll('.nav button').forEach(button => {
@@ -454,6 +525,14 @@
         button.classList.add('active');
         button.setAttribute('aria-selected', 'true');
         renderFollow(button.dataset.follow);
+      });
+    });
+    document.querySelectorAll('.ai-tab').forEach(button => {
+      button.addEventListener('click', () => {
+        document.querySelectorAll('.ai-tab').forEach(item => { item.classList.remove('active'); item.setAttribute('aria-selected', 'false'); });
+        button.classList.add('active');
+        button.setAttribute('aria-selected', 'true');
+        renderAI(button.dataset.ai);
       });
     });
   </script>
