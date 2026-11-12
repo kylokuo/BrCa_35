@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">乳腺癌丝带标志</title>
+  <desc id="desc">适合网站小尺寸使用的简化乳腺癌粉色丝带图标。</desc>
+  <defs>
+    <linearGradient id="pink" x1="15" y1="8" x2="45" y2="56" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f48aaa"/>
+      <stop offset="1" stop-color="#d94f7d"/>
+    </linearGradient>
+  </defs>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M32 10C22 5 13 11 14 22c1 9 7 14 15 18l13 15" stroke="url(#pink)" stroke-width="7"/>
+    <path d="M32 10c10-5 19 1 18 12-1 9-7 14-15 18L22 55" stroke="#8b365d" stroke-width="7"/>
+    <path d="M29 39l6 4" stroke="#b93668" stroke-width="7"/>
+  </g>
+</svg>
