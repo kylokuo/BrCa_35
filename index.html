@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>年轻乳腺癌研究地图</title>
+  <style>
+    :root {
+      --ink: #1f2330;
+      --muted: #697080;
+      --line: #e4e7ee;
+      --paper: #fbfaf7;
+      --panel: #ffffff;
+      --plum: #8b365d;
+      --plum-dark: #5f2445;
+      --plum-soft: #f7e9ef;
+      --blue: #2d628a;
+      --blue-soft: #e8f1f7;
+      --green: #2f755d;
+      --green-soft: #e8f3ee;
+      --gold: #a96d24;
+      --gold-soft: #fbf1df;
+      --shadow: 0 18px 50px rgba(55, 38, 47, 0.08);
+      --radius: 18px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: "Segoe UI", "Microsoft YaHei", system-ui, sans-serif;
+      line-height: 1.65;
+    }
+    a { color: var(--plum); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    button { font: inherit; }
+    .shell { max-width: var(--max); margin: 0 auto; padding: 0 24px 72px; }
+    .topbar {
+      position: sticky; top: 0; z-index: 10;
+      border-bottom: 1px solid rgba(228, 231, 238, .92);
+      background: rgba(251, 250, 247, .92);
+      backdrop-filter: blur(16px);
+    }
+    .topbar-inner {
+      max-width: var(--max); margin: 0 auto; padding: 13px 24px;
+      display: flex; align-items: center; justify-content: space-between; gap: 18px;
+    }
+    .brand { display: flex; align-items: center; gap: 11px; font-weight: 700; color: var(--ink); white-space: nowrap; }
+    .brand-mark { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 10px; color: #fff; background: var(--plum); font-weight: 800; }
+    .nav { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
+    .nav::-webkit-scrollbar { display: none; }
+    .nav button {
+      border: 0; background: transparent; color: var(--muted); padding: 8px 11px;
+      border-radius: 10px; cursor: pointer; white-space: nowrap;
+    }
+    .nav button:hover, .nav button.active { color: var(--plum-dark); background: var(--plum-soft); }
+    .eyebrow { color: var(--plum); text-transform: uppercase; letter-spacing: .12em; font-size: 12px; font-weight: 700; }
+    .hero { padding: 72px 0 38px; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(300px, .75fr); gap: 44px; align-items: end; }
+    h1, h2, h3, p { margin: 0; }
+    h1 { margin-top: 12px; max-width: 760px; font-size: clamp(38px, 6vw, 72px); line-height: 1.02; letter-spacing: -.055em; font-weight: 700; }
+    .hero-lede { margin-top: 22px; max-width: 720px; font-size: 19px; color: var(--muted); }
+    .hero-meta { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 9px; }
+    .pill { display: inline-flex; align-items: center; gap: 6px; border-radius: 999px; padding: 6px 11px; font-size: 13px; color: var(--muted); background: #f0f0ef; }
+    .pill.plum { color: var(--plum-dark); background: var(--plum-soft); }
+    .pill.blue { color: #24516e; background: var(--blue-soft); }
+    .pill.green { color: #255d49; background: var(--green-soft); }
+    .hero-note { border-left: 3px solid var(--plum); padding: 20px 0 20px 24px; }
+    .hero-note strong { display: block; font-size: 21px; line-height: 1.25; }
+    .hero-note span { display: block; margin-top: 10px; color: var(--muted); font-size: 14px; }
+    section { scroll-margin-top: 80px; padding: 44px 0; }
+    .section-heading { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 22px; }
+    .section-heading h2 { font-size: clamp(27px, 4vw, 42px); letter-spacing: -.035em; line-height: 1.1; }
+    .section-heading p { max-width: 520px; color: var(--muted); font-size: 15px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .stat { padding: 20px; border-top: 3px solid var(--plum); background: var(--panel); box-shadow: var(--shadow); border-radius: var(--radius); }
+    .stat:nth-child(2) { border-color: var(--blue); }
+    .stat:nth-child(3) { border-color: var(--green); }
+    .stat:nth-child(4) { border-color: var(--gold); }
+    .stat-number { font-size: 31px; line-height: 1; font-weight: 700; letter-spacing: -.04em; }
+    .stat-label { margin-top: 9px; font-size: 14px; font-weight: 600; }
+    .stat-detail { margin-top: 5px; color: var(--muted); font-size: 13px; }
+    .premise { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .premise-card { padding: 20px; border: 1px solid var(--line); border-radius: var(--radius); background: rgba(255,255,255,.74); }
+    .premise-card h3 { font-size: 18px; }
+    .premise-card p { margin-top: 8px; color: var(--muted); font-size: 14px; }
+    .premise-card .label { display: inline-block; margin-bottom: 10px; font-size: 12px; font-weight: 700; color: var(--plum); }
+    .callout { margin: 22px 0; padding: 20px 22px; border-radius: var(--radius); color: #fff; background: linear-gradient(120deg, var(--plum-dark), #8e436b); box-shadow: var(--shadow); }
+    .callout strong { font-size: 21px; }
+    .callout p { margin-top: 6px; color: rgba(255,255,255,.82); font-size: 14px; }
+    .toolbar { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+    .filter { border: 1px solid var(--line); background: var(--panel); color: var(--muted); padding: 8px 13px; border-radius: 999px; cursor: pointer; }
+    .filter:hover, .filter.active { color: #fff; border-color: var(--plum); background: var(--plum); }
+    .question-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .question-card { border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); overflow: hidden; transition: transform .18s ease, box-shadow .18s ease; }
+    .question-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+    .question-card[hidden] { display: none; }
+    .question-top { padding: 19px 20px 15px; display: flex; justify-content: space-between; gap: 12px; }
+    .question-top h3 { font-size: 18px; line-height: 1.35; }
+    .priority { flex: 0 0 auto; font-size: 12px; font-weight: 700; color: var(--plum); }
+    .question-card details { border-top: 1px solid var(--line); }
+    .question-card summary { padding: 12px 20px; cursor: pointer; color: var(--plum-dark); font-size: 13px; font-weight: 600; }
+    .question-body { padding: 0 20px 19px; color: var(--muted); font-size: 14px; }
+    .question-body p + p { margin-top: 9px; }
+    .question-body b { color: var(--ink); }
+    .model-layout { display: grid; grid-template-columns: .88fr 1.12fr; gap: 18px; align-items: start; }
+    .model-tabs { display: grid; gap: 8px; }
+    .model-tab { text-align: left; border: 1px solid var(--line); background: var(--panel); border-radius: 14px; padding: 16px 18px; cursor: pointer; }
+    .model-tab:hover, .model-tab.active { border-color: var(--plum); background: var(--plum-soft); }
+    .model-tab strong { display: block; font-size: 17px; }
+    .model-tab span { display: block; margin-top: 4px; color: var(--muted); font-size: 13px; }
+    .model-detail { min-height: 250px; padding: 26px; border-radius: var(--radius); background: var(--panel); box-shadow: var(--shadow); }
+    .model-detail h3 { font-size: 25px; }
+    .model-detail p { margin-top: 10px; color: var(--muted); }
+    .model-detail ul { margin: 16px 0 0; padding-left: 20px; color: var(--muted); }
+    .model-detail li + li { margin-top: 6px; }
+    .route { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; margin-top: 26px; }
+    .route::before { content: ""; position: absolute; top: 19px; left: 9%; right: 9%; height: 2px; background: var(--line); }
+    .route-step { position: relative; z-index: 1; text-align: center; }
+    .route-dot { width: 38px; height: 38px; margin: 0 auto 14px; display: grid; place-items: center; border-radius: 50%; color: #fff; background: var(--plum); box-shadow: 0 0 0 7px var(--paper); font-weight: 700; }
+    .route-step:nth-child(2) .route-dot { background: var(--blue); }
+    .route-step:nth-child(3) .route-dot { background: var(--green); }
+    .route-step:nth-child(4) .route-dot { background: var(--gold); }
+    .route-step h3 { font-size: 16px; }
+    .route-step p { max-width: 210px; margin: 6px auto 0; color: var(--muted); font-size: 13px; }
+    .route-panel { margin-top: 26px; min-height: 118px; padding: 20px; border-radius: var(--radius); background: var(--panel); border: 1px solid var(--line); }
+    .route-panel strong { color: var(--plum-dark); }
+    .follow-tabs { display: flex; gap: 8px; border-bottom: 1px solid var(--line); margin-bottom: 20px; overflow-x: auto; }
+    .follow-tab { border: 0; border-bottom: 3px solid transparent; background: transparent; padding: 10px 12px; color: var(--muted); cursor: pointer; white-space: nowrap; }
+    .follow-tab.active { color: var(--plum); border-bottom-color: var(--plum); }
+    .follow-panel { display: grid; grid-template-columns: .72fr 1.28fr; gap: 24px; align-items: start; }
+    .follow-panel h3 { font-size: 25px; }
+    .follow-panel .lead { margin-top: 8px; color: var(--muted); }
+    .checklist { display: grid; gap: 10px; }
+    .check { display: grid; grid-template-columns: 22px 1fr; gap: 10px; align-items: start; padding: 13px 15px; border-radius: 12px; background: var(--panel); border: 1px solid var(--line); }
+    .check-mark { width: 20px; height: 20px; display: grid; place-items: center; border-radius: 50%; color: #fff; background: var(--green); font-size: 12px; }
+    .check span { color: var(--muted); font-size: 14px; }
+    .evidence { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .evidence-card { padding: 18px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); }
+    .evidence-card .year { color: var(--plum); font-size: 13px; font-weight: 700; }
+    .evidence-card h3 { margin-top: 5px; font-size: 16px; line-height: 1.38; }
+    .evidence-card p { margin-top: 8px; color: var(--muted); font-size: 13px; }
+    .evidence-card a { display: inline-block; margin-top: 11px; font-size: 13px; font-weight: 600; }
+    .sources { columns: 2; column-gap: 36px; }
+    .source-item { break-inside: avoid; margin-bottom: 10px; color: var(--muted); font-size: 13px; }
+    footer { padding-top: 30px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+    .mobile-only { display: none; }
+    @media (max-width: 880px) {
+      .hero, .model-layout, .follow-panel { grid-template-columns: 1fr; }
+      .hero { padding-top: 52px; gap: 28px; }
+      .grid-4 { grid-template-columns: repeat(2, 1fr); }
+      .evidence { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 620px) {
+      .shell, .topbar-inner { padding-left: 16px; padding-right: 16px; }
+      .brand-text { display: none; }
+      .hero { padding-top: 42px; }
+      h1 { font-size: 43px; }
+      .hero-lede { font-size: 17px; }
+      .section-heading { display: block; }
+      .section-heading p { margin-top: 10px; }
+      .grid-4, .grid-3, .premise, .question-grid, .evidence { grid-template-columns: 1fr; }
+      .route { grid-template-columns: 1fr; gap: 16px; }
+      .route::before { top: 9%; bottom: 9%; left: 19px; width: 2px; height: auto; right: auto; }
+      .route-step { display: grid; grid-template-columns: 38px 1fr; gap: 14px; text-align: left; align-items: center; }
+      .route-dot { margin: 0; }
+      .route-step p { margin: 2px 0 0; max-width: none; }
+      .sources { columns: 1; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#overview"><span class="brand-mark">35</span><span class="brand-text">年轻乳腺癌研究地图</span></a>
+      <nav class="nav" aria-label="页面导航">
+        <button class="active" data-target="overview">总览</button>
+        <button data-target="questions">研究问题</button>
+        <button data-target="model">模型设计</button>
+        <button data-target="followup">随访策略</button>
+        <button data-target="roadmap">路线图</button>
+        <button data-target="evidence">证据</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="hero" id="overview">
+      <div>
+        <div class="eyebrow">Research map · 2026.11.12</div>
+        <h1>把年轻乳腺癌，做成一条可验证的研究主线。</h1>
+        <p class="hero-lede">以诊断年龄 &lt;35 岁为操作性定义，连接病例队列、高危筛查、遗传风险和全程管理。</p>
+        <div class="hero-meta">
+          <span class="pill plum">病例队列</span>
+          <span class="pill blue">本土化筛查</span>
+          <span class="pill green">全程管理</span>
+        </div>
+      </div>
+      <div class="hero-note">
+        <strong>病例库 ≠ 普通人群筛查模型</strong>
+        <span>已诊断患者数据库适合研究预后、遗传、诊断延迟和生存者结局；发病风险模型还需要未患癌队列、观察人时和人群基线风险。</span>
+      </div>
+    </section>
+
+    <div class="grid-4" aria-label="研究框架概览">
+      <div class="stat"><div class="stat-number">&lt;35</div><div class="stat-label">操作性年龄界定</div><div class="stat-detail">需用年龄分层与连续变量做敏感性分析</div></div>
+      <div class="stat"><div class="stat-number">3</div><div class="stat-label">必须拆开的模型对象</div><div class="stat-detail">发病风险、病灶恶性概率、患者结局</div></div>
+      <div class="stat"><div class="stat-number">4</div><div class="stat-label">风险管理人群</div><div class="stat-detail">普通高危、病灶、已诊断、胚系携带者</div></div>
+      <div class="stat"><div class="stat-number">3 年</div><div class="stat-label">建议研究节奏</div><div class="stat-detail">病例库 → 前瞻性队列 → 实施评价</div></div>
+    </div>
+
+    <section id="premises">
+      <div class="section-heading">
+        <div><div class="eyebrow">先核查前提</div><h2>四个边界，决定研究能否成立。</h2></div>
+        <p>将年龄、影像、发病风险、预后和遗传风险分开，才能让问题、数据和终点彼此匹配。</p>
+      </div>
+      <div class="premise">
+        <article class="premise-card"><span class="label">01 · 年龄</span><h3>&lt;35 岁可以用，但不是唯一真相</h3><p>已有研究支持 35 岁作为年轻起病的合理界限；主分析可用 &lt;35 岁，同时比较 ≤30、30–34、35–39、40–49 岁，并把年龄作为连续变量。</p></article>
+        <article class="premise-card"><span class="label">02 · 影像</span><h3>BI-RADS 不是发病风险模型</h3><p>BI-RADS 标准化乳腺 X 线、超声和 MRI 的术语、评估分类与管理建议，主要服务于影像发现和病灶管理。</p></article>
+        <article class="premise-card"><span class="label">03 · 数据</span><h3>病例库不能单独估计普通女性风险</h3><p>只有确诊病例时，无法得到未患癌人群的基线风险、观察人时和真实绝对风险；它更适合预后、复发、遗传和管理研究。</p></article>
+        <article class="premise-card"><span class="label">04 · 高危</span><h3>基因突变只是高危的一部分</h3><p>家族史、乳腺密度、良性病变、既往胸部放疗、生殖因素、生活方式和多基因风险都可能改变总体风险。</p></article>
+      </div>
+    </section>
+
+    <section id="questions">
+      <div class="section-heading">
+        <div><div class="eyebrow">Research questions</div><h2>从现有病例库，走向可改变临床的证据。</h2></div>
+        <p>选择一个研究入口，查看它需要什么数据、适合什么设计，以及能否立即启动。</p>
+      </div>
+      <div class="toolbar" role="group" aria-label="研究问题筛选">
+        <button class="filter active" data-filter="all">全部</button>
+        <button class="filter" data-filter="existing">现有病例库</button>
+        <button class="filter" data-filter="cohort">新建队列</button>
+        <button class="filter" data-filter="implementation">实施评价</button>
+      </div>
+      <div class="question-grid" id="questionGrid">
+        <article class="question-card" data-group="existing">
+          <div class="question-top"><h3>&lt;35 岁内部是否存在可重复的临床—分子亚群？</h3><span class="priority">P0</span></div>
+          <details open><summary>设计与价值</summary><div class="question-body"><p><b>研究：</b>比较 ≤30、30–34、35–39 岁的亚型、分期、Ki-67、基因改变和 DFS/OS。</p><p><b>方法：</b>限制性立方样条、分段模型、亚型交互作用和时间外验证。</p><p><b>数据：</b>现有病例库基本可启动，但要确认治疗和随访完整性。</p></div></details>
+        </article>
+        <article class="question-card" data-group="existing">
+          <div class="question-top"><h3>年轻乳腺癌的诊断延迟由什么造成？</h3><span class="priority">P0</span></div>
+          <details><summary>设计与价值</summary><div class="question-body"><p><b>研究：</b>症状出现—首次就诊—影像—病理—治疗的时间链如何影响晚期分期和高危亚型？</p><p><b>方法：</b>病历—影像—转诊时间链，可嵌套患者访谈。</p><p><b>数据：</b>需要补充症状起始和首次就诊日期。</p></div></details>
+        </article>
+        <article class="question-card" data-group="existing">
+          <div class="question-top"><h3>年轻年龄是否独立预测复发？</h3><span class="priority">P0</span></div>
+          <details><summary>设计与价值</summary><div class="question-body"><p><b>研究：</b>年龄效应究竟来自肿瘤生物学，还是被亚型、分期和治疗差异解释？</p><p><b>方法：</b>与 35–39、40–49 岁比较；年龄连续建模，并按亚型、治疗时代和分期分层。</p><p><b>数据：</b>病例库可直接进入第一轮分析。</p></div></details>
+        </article>
+        <article class="question-card" data-group="existing">
+          <div class="question-top"><h3>&lt;35 岁人群的胚系变异如何改变管理？</h3><span class="priority">P1</span></div>
+          <details><summary>设计与价值</summary><div class="question-body"><p><b>研究：</b>多基因检出率、预测因子、VUS 比例、手术/系统治疗改变和家属级联检测率。</p><p><b>方法：</b>基因结果与家族史、亚型、双侧/多原发和管理结局联结。</p><p><b>数据：</b>需要基因检测覆盖率与样本保存情况，未检测不能默认为阴性。</p></div></details>
+        </article>
+        <article class="question-card" data-group="existing">
+          <div class="question-top"><h3>生育力保存、卵巢功能和内分泌依从性如何相互影响？</h3><span class="priority">P1</span></div>
+          <details><summary>设计与价值</summary><div class="question-body"><p><b>研究：</b>诊断时生育意愿、转诊时效、AMH、保存方式、治疗和妊娠结局的纵向关系。</p><p><b>方法：</b>乳腺科—生殖中心联结队列，补充患者报告结局。</p><p><b>数据：</b>需要妇产科/生殖中心数据和长期随访。</p></div></details>
+        </article>
+        <article class="question-card" data-group="implementation">
+          <div class="question-top"><h3>为什么护理部单独牵头的个案管理触达不足？</h3><span class="priority">P1</span></div>
+          <details><summary>设计与价值</summary><div class="question-body"><p><b>研究：</b>找出转诊、检测、治疗、心理和复诊环节中的失访节点。</p><p><b>方法：</b>过程评价、质性访谈与 MDT/数字化管理前后对照。</p><p><b>终点：</b>触达率、完成率、转诊时效、患者负担、医生工作量。</p></div></details>
+        </article>
+        <article class="question-card" data-group="cohort">
+          <div class="question-top"><h3>能否开发适配中国年轻女性的 5 年/10 年绝对风险模型？</h3><span class="priority">P0</span></div>
+          <details open><summary>设计与价值</summary><div class="question-body"><p><b>研究：</b>预测尚未患癌女性未来 5 年、10 年发生浸润性乳腺癌的绝对风险。</p><p><b>方法：</b>先外部验证和再校准 Gail、IBIS、BOADICEA/CanRisk 及中国模型，再决定是否重建。</p><p><b>数据：</b>未患癌队列、观察人时、家族史、密度、胚系/PRS和癌症登记联结。</p></div></details>
+        </article>
+        <article class="question-card" data-group="cohort">
+          <div class="question-top"><h3>BI-RADS、密度和 MRI 能否改善病灶恶性概率判断？</h3><span class="priority">P1</span></div>
+          <details><summary>设计与价值</summary><div class="question-body"><p><b>研究：</b>把影像模型定义为“病灶恶性概率”，不与人群发病风险混为一谈。</p><p><b>方法：</b>影像—病理配对，评价校准、敏感度、特异度、穿刺率和净获益。</p><p><b>数据：</b>需要影像原始报告/图像和病理金标准。</p></div></details>
+        </article>
+        <article class="question-card" data-group="cohort">
+          <div class="question-top"><h3>年轻高危女性的影像筛查组合如何平衡收益与伤害？</h3><span class="priority">P1</span></div>
+          <details><summary>设计与价值</summary><div class="question-body"><p><b>研究：</b>超声、MRI、简化 MRI、乳腺 X 线及其组合的检出率和假阳性代价。</p><p><b>方法：</b>前瞻性影像队列或比较效果研究。</p><p><b>终点：</b>间期癌、召回率、穿刺率、成本、可及性和患者体验。</p></div></details>
+        </article>
+        <article class="question-card" data-group="implementation">
+          <div class="question-top"><h3>风险分层随访能否改善早期发现和长期结局？</h3><span class="priority">P1</span></div>
+          <details><summary>设计与价值</summary><div class="question-body"><p><b>研究：</b>比较常规路径与基于综合风险的随访路径。</p><p><b>方法：</b>分阶段实施或 stepped-wedge 研究。</p><p><b>终点：</b>分期迁移、间期癌、随访依从性、患者体验和卫生经济学。</p></div></details>
+        </article>
+        <article class="question-card" data-group="implementation">
+          <div class="question-top"><h3>基因、模型风险和患者偏好如何共同影响预防性切除？</h3><span class="priority">P2</span></div>
+          <details><summary>设计与价值</summary><div class="question-body"><p><b>研究：</b>不同基因、家族史和绝对风险层级下的手术选择与决策后悔。</p><p><b>方法：</b>基因—风险—手术—重建—生活质量前瞻性登记。</p><p><b>边界：</b>不能把基因阳性自动等同于必须手术。</p></div></details>
+        </article>
+      </div>
+    </section>
+
+    <section id="model">
+      <div class="section-heading">
+        <div><div class="eyebrow">Model boundary</div><h2>先分清模型对象，再谈算法。</h2></div>
+        <p>点击左侧模型，查看它预测什么、不能预测什么，以及应如何获取数据。</p>
+      </div>
+      <div class="model-layout">
+        <div class="model-tabs" role="tablist" aria-label="模型类型">
+          <button class="model-tab active" data-model="incidence" role="tab" aria-selected="true"><strong>发病风险模型</strong><span>尚未患癌 → 未来 5 年/10 年发病概率</span></button>
+          <button class="model-tab" data-model="lesion" role="tab" aria-selected="false"><strong>病灶恶性概率模型</strong><span>已有影像发现 → 病理恶性概率</span></button>
+          <button class="model-tab" data-model="outcome" role="tab" aria-selected="false"><strong>患者结局模型</strong><span>已确诊患者 → 复发、死亡、治疗和生活质量</span></button>
+        </div>
+        <div class="model-detail" id="modelDetail" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section id="roadmap">
+      <div class="section-heading">
+        <div><div class="eyebrow">Build → validate → implement</div><h2>本土化模型的六步路径。</h2></div>
+        <p>点击时间节点，查看从数据审计到影响评价的关键动作。</p>
+      </div>
+      <div class="route" role="list" aria-label="模型开发路线">
+        <div class="route-step" role="listitem" data-route="0"><div class="route-dot">1</div><div><h3>数据审计</h3><p>确定人群、时间起点、结局和缺失结构</p></div></div>
+        <div class="route-step" role="listitem" data-route="1"><div class="route-dot">2</div><div><h3>外部验证</h3><p>先验证 Gail、IBIS、BOADICEA 和中国模型</p></div></div>
+        <div class="route-step" role="listitem" data-route="2"><div class="route-dot">3</div><div><h3>再校准 / 重建</h3><p>临床 → 密度 → 胚系 → PRS 分层比较</p></div></div>
+        <div class="route-step" role="listitem" data-route="3"><div class="route-dot">4</div><div><h3>影响评价</h3><p>风险分层路径是否真正改善结局</p></div></div>
+      </div>
+      <div class="route-panel" id="routePanel" aria-live="polite"></div>
+    </section>
+
+    <section id="followup">
+      <div class="section-heading">
+        <div><div class="eyebrow">Risk-adapted follow-up</div><h2>三类人群，三条随访路径。</h2></div>
+        <p>随访频率不应先被固定；先定义人群、风险层级、可执行触点和可衡量终点。</p>
+      </div>
+      <div class="follow-tabs" role="tablist" aria-label="随访人群">
+        <button class="follow-tab active" data-follow="unaffected" role="tab" aria-selected="true">未患癌高危女性</button>
+        <button class="follow-tab" data-follow="survivor" role="tab" aria-selected="false">已治疗 &lt;35 岁患者</button>
+        <button class="follow-tab" data-follow="carrier" role="tab" aria-selected="false">胚系致病变异携带者</button>
+      </div>
+      <div class="follow-panel" id="followPanel" aria-live="polite"></div>
+    </section>
+
+    <section id="evidence">
+      <div class="section-heading">
+        <div><div class="eyebrow">Evidence base</div><h2>研究地图背后的关键证据。</h2></div>
+        <p>证据支持方向，但不能替代中国年轻女性中的外部验证和前瞻性影响评价。</p>
+      </div>
+      <div class="evidence">
+        <article class="evidence-card"><div class="year">2010 · 年龄界定</div><h3>35 岁是合理的年轻起病界限</h3><p>韩国 9,885 例 ≤50 岁患者研究显示，&lt;35 岁年龄—死亡风险更陡；激素受体阴性亚组并不完全相同。</p><a href="https://doi.org/10.1007/s10549-009-0388-z" target="_blank" rel="noreferrer">查看 DOI →</a></article>
+        <article class="evidence-card"><div class="year">2019 · 中国模型</div><h3>汉族女性已有风险模型雏形</h3><p>病例—对照与泰兴队列构建竞争风险模型，E/O 1.03，C-statistic 0.64；仍需跨地区外部验证。</p><a href="https://doi.org/10.1186/s12885-019-5321-1" target="_blank" rel="noreferrer">查看 DOI →</a></article>
+        <article class="evidence-card"><div class="year">2020 · 亚洲模型</div><h3>亚洲人群需要个体化筛查研究</h3><p>韩国综述指出，主流西方模型与亚洲模型的风险结构和人群基线不同。</p><a href="https://doi.org/10.4048/jbc.2020.23.e40" target="_blank" rel="noreferrer">查看 DOI →</a></article>
+        <article class="evidence-card"><div class="year">2022 · 中国 PRS</div><h3>PRS 有增量信息，但区分度仍有限</h3><p>中国女性 24 SNP PRS 的整体 AUC 约 0.60，ER 阴性亚型需要单独研究。</p><a href="https://doi.org/10.1186/s12885-022-09425-3" target="_blank" rel="noreferrer">查看 DOI →</a></article>
+        <article class="evidence-card"><div class="year">2024 · 生存者队列</div><h3>年轻患者的终点远超 OS/DFS</h3><p>YWS 长期收集生育、心理、生活质量和生物样本，显示生育力保存和恐惧复发是核心问题。</p><a href="https://doi.org/10.1136/bmjopen-2023-081157" target="_blank" rel="noreferrer">查看 DOI →</a></article>
+        <article class="evidence-card"><div class="year">2026 · 中国遗传风险</div><h3>BRCA1/2 预测可以进入临床效用评价</h3><p>1,204 例中国高危患者中 P/LP 检出率 8.5%，内部 AUC 0.758；尚需外部验证。</p><a href="https://doi.org/10.3389/fonc.2026.1779548" target="_blank" rel="noreferrer">查看 DOI →</a></article>
+      </div>
+      <div class="callout" style="margin-top:22px;">
+        <strong>关键判断：先验证和再校准，再决定是否从零建模。</strong>
+        <p>如果现有模型在本地队列中校准良好且有净获益，研究重点应转向风险分层路径和长期随访，而不是为了“本土化”重复造一个无法落地的新模型。</p>
+      </div>
+    </section>
+
+    <section id="sources">
+      <div class="section-heading">
+        <div><div class="eyebrow">Reference trail</div><h2>完整调研报告。</h2></div>
+        <p>展开原始报告，查看前提核查、统计底线、三年路线和可推翻条件。</p>
+      </div>
+      <p><a class="pill plum" href="年轻乳腺癌研究问题与本土化筛查模型调研报告.md">打开完整调研报告 →</a></p>
+      <div class="sources" style="margin-top:22px;">
+        <div class="source-item">ACR · <a href="https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/BI-RADS" target="_blank" rel="noreferrer">BI-RADS 官方说明</a></div>
+        <div class="source-item">Wang et al. 2019 · <a href="https://doi.org/10.1186/s12885-019-5321-1" target="_blank" rel="noreferrer">Han Chinese risk model</a></div>
+        <div class="source-item">Hou et al. 2022 · <a href="https://doi.org/10.1186/s12885-022-09425-3" target="_blank" rel="noreferrer">Chinese PRS</a></div>
+        <div class="source-item">Gu et al. 2026 · <a href="https://doi.org/10.3389/fonc.2026.1779548" target="_blank" rel="noreferrer">HBRCA-risk</a></div>
+        <div class="source-item">Rosenberg et al. 2024 · <a href="https://doi.org/10.1136/bmjopen-2023-081157" target="_blank" rel="noreferrer">Young Women's Breast Cancer Study</a></div>
+        <div class="source-item">Li et al. 2026 · <a href="https://doi.org/10.1186/s12916-026-05334-5" target="_blank" rel="noreferrer">BREATHE Asian screening</a></div>
+      </div>
+    </section>
+
+    <footer>资料检索截至 2026 年 11 月 12 日。当前页面用于研究设计讨论；模型、筛查频率和临床路径仍需在本土队列中完成外部验证和影响评价。</footer>
+  </main>
+
+  <script>
+    const modelContent = {
+      incidence: {
+        title: '发病风险模型',
+        text: '面向尚未患癌的女性，预测未来 5 年、10 年或终生发生浸润性乳腺癌的绝对风险。它回答“谁应该进入高危筛查路径”。',
+        items: ['需要未患癌队列、观察人时和人群基线风险', '应比较 Gail/BCRAT、Tyrer–Cuzick/IBIS、BOADICEA/CanRisk 与中国模型', '重点报告校准、Brier score、时间依赖 AUC 和决策曲线，而非只看 AUC']
+      },
+      lesion: {
+        title: '病灶恶性概率模型',
+        text: '面向已经出现肿块、钙化或非肿块性病变的女性，预测病理恶性概率。BI-RADS 属于这一条路径的标准化影像评估框架。',
+        items: ['结局是病理恶性，而不是未来 5 年/10 年发病', '需要影像—病理配对数据和稳定的影像变量定义', '重点评价召回率、穿刺率、假阳性、校准和净获益']
+      },
+      outcome: {
+        title: '患者结局模型',
+        text: '面向已经确诊的年轻患者，预测复发、死亡、对侧癌、治疗毒性、生育和生活质量。现有 <35 岁回顾性数据库主要适合这一类。',
+        items: ['可立即研究年龄、亚型、分期、治疗与 DFS/OS 的关系', '可扩展到生育力、恐惧复发、营养、体重和长期心血管/骨健康', '不能把病例库直接改名为普通人群发病风险队列']
+      }
+    };
+
+    const followContent = {
+      unaffected: {
+        title: '未患癌高危女性',
+        lead: '目标是识别未来发病风险高的人，并建立可执行、可追踪的风险分层筛查路径。',
+        items: ['综合绝对风险、家族史、胚系变异、乳腺密度和既往影像', '记录咨询、检测、影像、召回和失访节点', '以间期癌、早期检出、假阳性、穿刺率和成本评价路径']
+      },
+      survivor: {
+        title: '已治疗 <35 岁患者',
+        lead: '随访不只是复查影像，还要覆盖复发、内分泌依从性、生育和长期生活质量。',
+        items: ['诊断时、治疗结束、6–12 个月及年度随访设置固定触点', '重复测量体重/腰围、营养、活动、睡眠、心理和恐惧复发', '联结生殖中心，记录生育力保存、卵巢功能和妊娠结局']
+      },
+      carrier: {
+        title: '胚系致病变异携带者',
+        lead: '遗传风险需要基因特异性管理、家属级联检测和共同决策，而不是“一阳性就手术”。',
+        items: ['区分 BRCA1/2、PALB2、TP53、CHEK2、ATM 等基因的风险结构', '记录结果返回、家属检测、对侧风险和预防性手术决策', '用决策冲突、后悔、重建结果和生活质量评价管理质量']
+      }
+    };
+
+    const routeContent = [
+      '<strong>0–3 个月 · 数据审计：</strong>固定人群、时间起点、主要结局、缺失机制和随访窗口；先判断病例库能支持预后、遗传还是患者报告结局。',
+      '<strong>3–12 个月 · 外部验证：</strong>在本地未患癌或高危门诊队列中验证现有模型，报告校准截距、斜率、观察/期望比、Brier score 和决策曲线。',
+      '<strong>12–24 个月 · 再校准或重建：</strong>比较临床基础、乳腺密度、胚系、PRS 和多模态模型；按事件数、过拟合和目标精度规划样本量。',
+      '<strong>24–36 个月 · 影响评价：</strong>用分阶段实施或 stepped-wedge 设计，比较风险分层路径与常规路径的分期迁移、间期癌、依从性、体验和成本。'
+    ];
+
+    function renderModel(key) {
+      const item = modelContent[key];
+      document.querySelector('#modelDetail').innerHTML = '<h3>' + item.title + '</h3><p>' + item.text + '</p><ul>' + item.items.map(x => '<li>' + x + '</li>').join('') + '</ul>';
+    }
+    function renderFollow(key) {
+      const item = followContent[key];
+      document.querySelector('#followPanel').innerHTML = '<div><h3>' + item.title + '</h3><p class="lead">' + item.lead + '</p></div><div class="checklist">' + item.items.map(x => '<div class="check"><span class="check-mark">✓</span><span>' + x + '</span></div>').join('') + '</div>';
+    }
+    renderModel('incidence');
+    renderFollow('unaffected');
+    document.querySelector('#routePanel').innerHTML = routeContent[0];
+
+    document.querySelectorAll('.nav button').forEach(button => {
+      button.addEventListener('click', () => {
+        document.getElementById(button.dataset.target).scrollIntoView({ behavior: 'smooth' });
+        document.querySelectorAll('.nav button').forEach(item => item.classList.remove('active'));
+        button.classList.add('active');
+      });
+    });
+    document.querySelectorAll('.filter').forEach(button => {
+      button.addEventListener('click', () => {
+        document.querySelectorAll('.filter').forEach(item => item.classList.remove('active'));
+        button.classList.add('active');
+        const filter = button.dataset.filter;
+        document.querySelectorAll('.question-card').forEach(card => { card.hidden = filter !== 'all' && card.dataset.group !== filter; });
+      });
+    });
+    document.querySelectorAll('.model-tab').forEach(button => {
+      button.addEventListener('click', () => {
+        document.querySelectorAll('.model-tab').forEach(item => { item.classList.remove('active'); item.setAttribute('aria-selected', 'false'); });
+        button.classList.add('active');
+        button.setAttribute('aria-selected', 'true');
+        renderModel(button.dataset.model);
+      });
+    });
+    document.querySelectorAll('.route-step').forEach(step => {
+      step.addEventListener('click', () => { document.querySelector('#routePanel').innerHTML = routeContent[step.dataset.route]; });
+    });
+    document.querySelectorAll('.follow-tab').forEach(button => {
+      button.addEventListener('click', () => {
+        document.querySelectorAll('.follow-tab').forEach(item => { item.classList.remove('active'); item.setAttribute('aria-selected', 'false'); });
+        button.classList.add('active');
+        button.setAttribute('aria-selected', 'true');
+        renderFollow(button.dataset.follow);
+      });
+    });
+  </script>
+</body>
+</html>
