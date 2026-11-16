@@ -74,6 +74,31 @@
     .hero-note { border-left: 3px solid var(--plum); padding: 20px 0 20px 24px; }
     .hero-note strong { display: block; font-size: 21px; line-height: 1.25; }
     .hero-note span { display: block; margin-top: 10px; color: var(--muted); font-size: 14px; }
+    .clinical-ai { margin-top: 22px; padding: 28px; border: 1px solid #dfe6ee; border-radius: 24px; background: linear-gradient(135deg, #f4f8fb 0%, #fff 62%); box-shadow: var(--shadow); }
+    .clinical-ai .section-heading { margin-bottom: 18px; }
+    .clinical-ai .section-heading h2 { max-width: 680px; }
+    .care-layout { display: grid; grid-template-columns: .78fr 1.22fr; gap: 16px; align-items: start; }
+    .care-tabs { display: grid; gap: 7px; }
+    .care-tab { text-align: left; border: 1px solid var(--line); background: rgba(255,255,255,.8); border-radius: 14px; padding: 13px 15px; cursor: pointer; }
+    .care-tab:hover, .care-tab.active { border-color: var(--blue); background: var(--blue-soft); }
+    .care-tab strong { display: block; font-size: 15px; }
+    .care-tab span { display: block; margin-top: 3px; color: var(--muted); font-size: 12px; }
+    .care-detail { min-height: 294px; padding: 24px; border-radius: 18px; background: var(--panel); box-shadow: var(--shadow); }
+    .care-detail h3 { font-size: 24px; line-height: 1.25; }
+    .care-detail > p { margin-top: 8px; color: var(--muted); font-size: 14px; }
+    .care-steps { display: grid; gap: 9px; margin-top: 17px; }
+    .care-step { display: grid; grid-template-columns: 30px 1fr; gap: 10px; align-items: start; }
+    .care-step b { width: 26px; height: 26px; display: grid; place-items: center; border-radius: 50%; color: #fff; background: var(--blue); font-size: 12px; }
+    .care-step strong { display: block; font-size: 14px; }
+    .care-step span { display: block; margin-top: 2px; color: var(--muted); font-size: 13px; }
+    .product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 14px; }
+    .product-card { padding: 16px; border-radius: 16px; background: rgba(255,255,255,.82); border: 1px solid var(--line); }
+    .product-card .label { color: var(--blue); font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .product-card h3 { margin-top: 5px; font-size: 16px; }
+    .product-card p { margin-top: 7px; color: var(--muted); font-size: 13px; }
+    .product-card ul { margin: 9px 0 0; padding-left: 18px; color: var(--muted); font-size: 13px; }
+    .product-card li + li { margin-top: 4px; }
+    .product-research { margin-top: 14px; padding: 14px 16px; border-radius: 14px; color: #31526b; background: #e8f1f7; font-size: 13px; }
     section { scroll-margin-top: 80px; padding: 44px 0; }
     .section-heading { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 22px; }
     .section-heading h2 { font-size: clamp(27px, 4vw, 42px); letter-spacing: -.035em; line-height: 1.1; }
@@ -169,7 +194,7 @@
     footer { padding-top: 30px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
     .mobile-only { display: none; }
     @media (max-width: 880px) {
-      .hero, .model-layout, .follow-panel { grid-template-columns: 1fr; }
+      .hero, .model-layout, .follow-panel, .care-layout { grid-template-columns: 1fr; }
       .ai-layout { grid-template-columns: 1fr; }
       .hero { padding-top: 52px; gap: 28px; }
       .grid-4 { grid-template-columns: repeat(2, 1fr); }
@@ -183,7 +208,7 @@
       .hero-lede { font-size: 17px; }
       .section-heading { display: block; }
       .section-heading p { margin-top: 10px; }
-      .grid-4, .grid-3, .premise, .question-grid, .evidence, .ai-questions { grid-template-columns: 1fr; }
+      .grid-4, .grid-3, .premise, .question-grid, .evidence, .ai-questions, .product-grid { grid-template-columns: 1fr; }
       .route { grid-template-columns: 1fr; gap: 16px; }
       .route::before { top: 9%; bottom: 9%; left: 19px; width: 2px; height: auto; right: auto; }
       .route-step { display: grid; grid-template-columns: 38px 1fr; gap: 14px; text-align: left; align-items: center; }
@@ -199,6 +224,7 @@
       <a class="brand" href="#overview"><span class="brand-mark"><img src="breast-cancer-ribbon-mark.svg" alt=""></span><span class="brand-text">年轻乳腺癌研究地图</span></a>
       <nav class="nav" aria-label="页面导航">
         <button class="active" data-target="overview">总览</button>
+        <button data-target="clinical-ai">临床全程 + AI</button>
         <button data-target="questions">研究问题</button>
         <button data-target="model">模型设计</button>
         <button data-target="followup">随访策略</button>
@@ -227,6 +253,30 @@
         <strong>病例库 ≠ 普通人群筛查模型</strong>
         <span>已诊断患者数据库适合研究预后、遗传、诊断延迟和生存者结局；发病风险模型还需要未患癌队列、观察人时和人群基线风险。</span>
       </div>
+    </section>
+
+    <section id="clinical-ai" class="clinical-ai">
+      <div class="section-heading">
+        <div><div class="eyebrow">Clinical care + AI product</div><h2>年轻患者的差异，集中在“问什么、何时转、谁来接”。</h2></div>
+        <p>肿瘤治疗骨架仍由分期、亚型和治疗反应决定；AI 的增量是把年轻专属风险前置采集、把治疗中的变化连续记录，并把告警交给明确的临床责任人。</p>
+      </div>
+      <div class="care-layout">
+        <div class="care-tabs" role="tablist" aria-label="年轻乳腺癌全程诊疗节点">
+          <button class="care-tab active" data-care-stage="intake" role="tab" aria-selected="true"><strong>01 · 首诊 / 问诊</strong><span>症状时间线 + 妊娠哺乳 + 生育目标</span></button>
+          <button class="care-tab" data-care-stage="diagnosis" role="tab" aria-selected="false"><strong>02 · 影像—病理—分期</strong><span>密度高不等于低风险，异常要闭环</span></button>
+          <button class="care-tab" data-care-stage="pretreatment" role="tab" aria-selected="false"><strong>03 · 治疗前 / MDT</strong><span>遗传、生育力与共同决策前置</span></button>
+          <button class="care-tab" data-care-stage="treatment" role="tab" aria-selected="false"><strong>04 · 手术 / 系统治疗</strong><span>按肿瘤风险治疗，连续监测毒性</span></button>
+          <button class="care-tab" data-care-stage="followup" role="tab" aria-selected="false"><strong>05 · 治疗后早期随访</strong><span>复发基础监测 + 内分泌依从性</span></button>
+          <button class="care-tab" data-care-stage="survivorship" role="tab" aria-selected="false"><strong>06 · 长期生存</strong><span>妊娠、性健康、心理、骨与心血管</span></button>
+        </div>
+        <div class="care-detail" id="careDetail" aria-live="polite"></div>
+      </div>
+      <div class="product-grid">
+        <article class="product-card"><div class="label">Patient app</div><h3>患者端：先准备好每一次问诊</h3><p>不是只提醒复查，而是把患者在门诊间隔中的变化变成可用信息。</p><ul><li>症状时间线、复诊问题清单、PRO</li><li>用药/漏服、月经/卵巢、妊娠与避孕</li><li>红旗症状 → 人工复核，不自动诊断</li></ul></article>
+        <article class="product-card"><div class="label">Clinician app</div><h3>医生端：一条可审计的纵向时间线</h3><p>让医生先看到病程、照护缺口和待处理任务，再看到模型排序。</p><ul><li>病理—分期—治疗—PRO—转诊闭环</li><li>生育、遗传、心理和内分泌缺口清单</li><li>来源、规则版本、责任人和响应时限</li></ul></article>
+        <article class="product-card"><div class="label">Guardrails</div><h3>安全边界：AI 做组织，不做越权决策</h3><p>所有高风险输出都必须可解释、可追踪，并能回到人工团队。</p><ul><li>不自动改药、停药、判定复发或批准妊娠</li><li>数据缺失/模型不可用时保守升级</li><li>权限、审计、脱敏、公平性和模型版本</li></ul></article>
+      </div>
+      <div class="product-research"><strong>建议的首个研究终点：</strong>治疗前生育力咨询/转诊完成率、PRO 填写与告警响应时间、内分泌依从性、症状升级处理、失访率、患者负担、医生工作量和不同数字可及性亚组的公平性。没有指定人员接住告警，ePRO 很难转化成临床获益。<br><span>证据锚点：<a href="https://doi.org/10.1016/j.annonc.2022.07.007" target="_blank" rel="noreferrer">BCY5</a> · <a href="https://doi.org/10.1200/jco-24-02782" target="_blank" rel="noreferrer">ASCO 生育力指南</a> · <a href="https://doi.org/10.1056/NEJMoa2212856" target="_blank" rel="noreferrer">POSITIVE</a> · <a href="https://doi.org/10.1001/jama.2017.7156" target="_blank" rel="noreferrer">ePRO 症状监测</a></span></div>
     </section>
 
     <div class="grid-4" aria-label="研究框架概览">
@@ -399,7 +449,7 @@
         <div><div class="eyebrow">Reference trail</div><h2>完整调研报告。</h2></div>
         <p>展开原始报告，查看前提核查、统计底线、三年路线和可推翻条件。</p>
       </div>
-      <p><a class="pill plum" href="年轻乳腺癌研究问题与本土化筛查模型调研报告.md">打开完整调研报告 →</a> <a class="pill blue" href="young-breast-cancer-consensus.html">打开独立共识流程报告 →</a></p>
+      <p><a class="pill plum" href="年轻乳腺癌研究问题与本土化筛查模型调研报告.md">打开完整调研报告 →</a> <a class="pill blue" href="young-breast-cancer-consensus.html">打开独立共识流程报告 →</a> <a class="pill green" href="年轻乳腺癌全程诊疗与AI产品设计调研.md">打开全程诊疗与 AI 产品调研 →</a></p>
       <div class="sources" style="margin-top:22px;">
         <div class="source-item">ACR · <a href="https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/BI-RADS" target="_blank" rel="noreferrer">BI-RADS 官方说明</a></div>
         <div class="source-item">Wang et al. 2019 · <a href="https://doi.org/10.1186/s12885-019-5321-1" target="_blank" rel="noreferrer">Han Chinese risk model</a></div>
@@ -410,10 +460,49 @@
       </div>
     </section>
 
-    <footer>资料检索截至 2026 年 11 月 12 日。当前页面用于研究设计讨论；模型、筛查频率、AI 随访和临床路径仍需在本土队列中完成外部验证和影响评价。</footer>
+    <footer>资料检索截至 2026 年 11 月 16 日。当前页面用于研究设计讨论；模型、筛查频率、AI 随访和临床路径仍需在本土队列中完成外部验证和影响评价。</footer>
   </main>
 
   <script>
+    const careContent = {
+      intake: {
+        title: '首诊 / 问诊：把年轻专属问题前置问全',
+        text: '年轻患者不是多问几句病史，而是要把症状延迟、妊娠/哺乳、生育目标、遗传线索和患者可接受的治疗时间窗变成结构化信息。',
+        items: [['01', '症状与就诊时间链', '记录症状出现、首次就诊、影像、活检和治疗的时间点；年轻乳腺密度高，影像阴性但临床可疑时不能结束路径。'], ['02', '妊娠 / 哺乳与生育目标', '问清当前妊娠、哺乳、末次月经、避孕方式、未来生育意愿和可接受的治疗延迟。'], ['03', '遗传与生活约束', '记录早发癌家族史、既往胸部放疗、已知胚系结果、工作、照护、经济和心理支持。']]
+      },
+      diagnosis: {
+        title: '影像—病理—分期：防止“密度高 / 在哺乳”掩盖风险',
+        text: '核心诊断链与一般乳腺癌相同，但要把年龄适配的影像、查体—影像不一致和组织学闭环写进产品规则。',
+        items: [['01', '按年龄与场景选初始影像', '<30 岁可触及肿块通常先超声；30–39 岁超声与诊断性乳腺 X 线/DBT 均可作为初始检查。'], ['02', '异常不被自动安抚', '妊娠/哺乳或影像阴性不能自动归因于生理变化；临床高度可疑时进入复核、追加影像或组织学诊断。'], ['03', '形成可用的肿瘤画像', '完整记录 ER/PR、HER2、Ki-67、分级、LVI、T/N、残余病灶和治疗前后反应，供 MDT 与随访使用。']]
+      },
+      pretreatment: {
+        title: '治疗前 / MDT：遗传、生育力和共同决策必须前置',
+        text: '年轻患者的关键差异往往发生在第一针化疗或第一项不可逆治疗之前；系统要识别缺口，而不是等患者主动提问。',
+        items: [['01', '生育力闭环', '在可能影响卵巢功能的治疗前完成咨询、评估、转诊、方案选择和结果记录；GnRHa 不能替代成熟的保存方法。'], ['02', '遗传检测闭环', '记录知情同意、BRCA1/2 或其他胚系检测、结果解释、家属级联检测和对侧风险讨论；VUS 不直接改变管理。'], ['03', '可解释的 MDT', '把分期、亚型、患者目标、妊娠计划、重建偏好和临床试验机会放在同一决策摘要中。']]
+      },
+      treatment: {
+        title: '手术 / 系统治疗：按肿瘤风险治疗，连续监测真实负担',
+        text: '年轻年龄本身不是加码治疗的充分理由；系统需要同时守住肿瘤学安全、功能保留和治疗可完成性。',
+        items: [['01', '局部治疗共同决策', '不因年轻自动扩大手术，也不因年轻自动保守；讨论重建、体像、感觉、性健康和未来哺乳影响。'], ['02', '按亚型 / 分期 / 反应决策', '记录方案、剂量、延迟、完成度、病理反应、卵巢功能和内分泌计划，避免把“化疗更多”误写成“年龄导致耐药”。'], ['03', '治疗期 PRO', '按治疗周期采集恶心、疼痛、疲劳、神经病变、睡眠、情绪、营养、月经和用药，不把长问卷一次性堆给患者。']]
+      },
+      followup: {
+        title: '治疗后早期随访：基础复发监测不变，年轻模块增加',
+        text: '病史、查体和乳腺影像仍是基础；AI 的价值是发现症状、依从性和支持性照护需求变化，并把任务交给人。',
+        items: [['01', '不盲目加做全身检查', '无症状患者不因年轻自动增加 CT、PET-CT、全身 MRI 或肿瘤标志物；症状或查体异常时进入诊断路径。'], ['02', '内分泌与卵巢功能', '记录漏服、停药原因、潮热/关节症状、月经变化、妊娠计划和避孕，并把需要处理的原因分诊给团队。'], ['03', '闭环而非提醒', '每个红旗告警都要有责任人、响应时限、回拨结果、转诊状态和患者是否理解。']]
+      },
+      survivorship: {
+        title: '长期生存：把妊娠、性健康和生活质量当作临床结局',
+        text: '年轻患者的长期管理不是“复查结束”，而是要持续处理生育/妊娠、心理、性健康、体重营养、心血管、骨健康、工作和经济负担。',
+        items: [['01', '妊娠计划要可追踪', 'POSITIVE 研究支持在选择性 HR 阳性患者中研究内分泌暂时中断备孕，但 AI 不能自动批准停药或给出妊娠许可。'], ['02', '支持性照护常态化', '用短量表和对话记录复发恐惧、睡眠、抑郁、身体形象、性健康、营养和运动，按趋势而非单次分数升级。'], ['03', '终点扩展到患者真正关心的事', '除 DFS/OS 外，记录内分泌持续使用、生育结局、工作回归、生活质量、告警负担和不同数字能力人群的获益。']]
+      }
+    };
+
+    function renderCare(key) {
+      const item = careContent[key];
+      const steps = item.items.map(x => '<div class="care-step"><b>' + x[0] + '</b><div><strong>' + x[1] + '</strong><span>' + x[2] + '</span></div></div>').join('');
+      document.querySelector('#careDetail').innerHTML = '<h3>' + item.title + '</h3><p>' + item.text + '</p><div class="care-steps">' + steps + '</div>';
+    }
+
     const modelContent = {
       incidence: {
         title: '发病风险模型',
@@ -493,6 +582,7 @@
       document.querySelector('#aiPanel').innerHTML = '<h3>' + item.title + '</h3><p>' + item.text + '</p><ul>' + item.items.map(x => '<li>' + x + '</li>').join('') + '</ul>';
     }
     renderModel('incidence');
+    renderCare('intake');
     renderFollow('unaffected');
     renderAI('patient');
     document.querySelector('#routePanel').innerHTML = routeContent[0];
@@ -510,6 +600,14 @@
         button.classList.add('active');
         const filter = button.dataset.filter;
         document.querySelectorAll('.question-card').forEach(card => { card.hidden = filter !== 'all' && card.dataset.group !== filter; });
+      });
+    });
+    document.querySelectorAll('.care-tab').forEach(button => {
+      button.addEventListener('click', () => {
+        document.querySelectorAll('.care-tab').forEach(item => { item.classList.remove('active'); item.setAttribute('aria-selected', 'false'); });
+        button.classList.add('active');
+        button.setAttribute('aria-selected', 'true');
+        renderCare(button.dataset.careStage);
       });
     });
     document.querySelectorAll('.model-tab').forEach(button => {
