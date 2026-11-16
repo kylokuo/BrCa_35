@@ -198,6 +198,7 @@
       <nav class="nav" aria-label="页面导航">
         <button class="active" data-target="overview">总览</button>
         <button data-target="questions">研究问题</button>
+        <button data-target="clinical-flow">诊疗流程</button>
         <button data-target="model">模型设计</button>
         <button data-target="followup">随访策略</button>
         <button data-target="ai-followup">AI 随访端</button>
@@ -210,7 +211,7 @@
   <main class="shell">
     <section class="hero" id="overview">
       <div>
-        <div class="eyebrow">Research map · 2026.11.12</div>
+        <div class="eyebrow">Research map · 2026.11.16</div>
         <h1>把年轻乳腺癌，做成一条可验证的研究主线。</h1>
         <p class="hero-lede">以诊断年龄 &lt;35 岁为操作性定义，连接病例队列、高危筛查、遗传风险和全程管理。</p>
         <div class="hero-meta">
@@ -242,6 +243,21 @@
         <article class="premise-card"><span class="label">02 · 影像</span><h3>BI-RADS 不是发病风险模型</h3><p>BI-RADS 标准化乳腺 X 线、超声和 MRI 的术语、评估分类与管理建议，主要服务于影像发现和病灶管理。</p></article>
         <article class="premise-card"><span class="label">03 · 数据</span><h3>病例库不能单独估计普通女性风险</h3><p>只有确诊病例时，无法得到未患癌人群的基线风险、观察人时和真实绝对风险；它更适合预后、复发、遗传和管理研究。</p></article>
         <article class="premise-card"><span class="label">04 · 高危</span><h3>基因突变只是高危的一部分</h3><p>家族史、乳腺密度、良性病变、既往胸部放疗、生殖因素、生活方式和多基因风险都可能改变总体风险。</p></article>
+      </div>
+    </section>
+
+    <section id="clinical-flow">
+      <div class="section-heading">
+        <div><div class="eyebrow">Consensus pathway</div><h2>年轻患者的关键，不是多做检查，而是走对路径。</h2></div>
+        <p>共识的差异集中在年龄适配的诊断、高危筛查和长期管理；治疗后复发监测的基础框架并不会因为年轻而自动改写。</p>
+      </div>
+      <div class="model-layout">
+        <div class="model-tabs" role="tablist" aria-label="年轻乳腺癌诊疗流程">
+          <button class="clinical-tab model-tab active" data-clinical="diagnosis" role="tab" aria-selected="true"><strong>有症状：先完成诊断链</strong><span>超声 / 诊断性乳腺 X 线或 DBT / 病理</span></button>
+          <button class="clinical-tab model-tab" data-clinical="screening" role="tab" aria-selected="false"><strong>无症状高危：按绝对风险筛查</strong><span>风险评估 / 遗传 / MRI 与乳腺 X 线组合</span></button>
+          <button class="clinical-tab model-tab" data-clinical="followup" role="tab" aria-selected="false"><strong>已确诊：基础随访 + 年轻专属模块</strong><span>复发监测 / 生育 / 内分泌 / 心理与长期毒性</span></button>
+        </div>
+        <div class="model-detail" id="clinicalDetail" aria-live="polite"></div>
       </div>
     </section>
 
@@ -383,6 +399,10 @@
         <article class="evidence-card"><div class="year">2022 · 中国 PRS</div><h3>PRS 有增量信息，但区分度仍有限</h3><p>中国女性 24 SNP PRS 的整体 AUC 约 0.60，ER 阴性亚型需要单独研究。</p><a href="https://doi.org/10.1186/s12885-022-09425-3" target="_blank" rel="noreferrer">查看 DOI →</a></article>
         <article class="evidence-card"><div class="year">2024 · 生存者队列</div><h3>年轻患者的终点远超 OS/DFS</h3><p>YWS 长期收集生育、心理、生活质量和生物样本，显示生育力保存和恐惧复发是核心问题。</p><a href="https://doi.org/10.1136/bmjopen-2023-081157" target="_blank" rel="noreferrer">查看 DOI →</a></article>
         <article class="evidence-card"><div class="year">2026 · 中国遗传风险</div><h3>BRCA1/2 预测可以进入临床效用评价</h3><p>1,204 例中国高危患者中 P/LP 检出率 8.5%，内部 AUC 0.758；尚需外部验证。</p><a href="https://doi.org/10.3389/fonc.2026.1779548" target="_blank" rel="noreferrer">查看 DOI →</a></article>
+        <article class="evidence-card"><div class="year">2022 · 中国年龄比较</div><h3>年轻组化疗更多，结局也更差</h3><p>≤35 岁组化疗 91.2%，>50 岁组 83.9%；但差异仍需按亚型、分期和治疗时代解释。</p><a href="https://doi.org/10.3389/fonc.2022.783487" target="_blank" rel="noreferrer">查看 DOI →</a></article>
+        <article class="evidence-card"><div class="year">2026 · &lt;35 岁分层</div><h3>35 岁是可检验的风险分层点</h3><p>≤40 岁队列中，&lt;35 岁患者 5 年 DFS 更差；调整亚型和 T/N 分期后年龄效应仍存在，但模型区分度中等。</p><a href="https://doi.org/10.1093/oncolo/oyag244" target="_blank" rel="noreferrer">查看 DOI →</a></article>
+        <article class="evidence-card"><div class="year">2026 · ASCO 随访</div><h3>风险分层比盲目加检更重要</h3><p>新版建议继续以病史、查体和乳腺影像为核心；高复发风险者可提高随访强度，常规血液标志物和全身影像不应一刀切。</p><a href="https://doi.org/10.1200/JCO-26-01700" target="_blank" rel="noreferrer">查看 DOI →</a></article>
+        <article class="evidence-card"><div class="year">2023 · ACR 诊断</div><h3>&lt;30 岁肿块先做超声</h3><p>ACR 对可触及肿块建议：&lt;30 岁超声通常适宜；30–39 岁超声与诊断性乳腺 X 线/DBT 均通常适宜。</p><a href="https://doi.org/10.1016/j.jacr.2023.02.013" target="_blank" rel="noreferrer">查看 DOI →</a></article>
       </div>
       <div class="callout" style="margin-top:22px;">
         <strong>关键判断：先验证和再校准，再决定是否从零建模。</strong>
@@ -406,7 +426,7 @@
       </div>
     </section>
 
-    <footer>资料检索截至 2026 年 11 月 12 日。当前页面用于研究设计讨论；模型、筛查频率、AI 随访和临床路径仍需在本土队列中完成外部验证和影响评价。</footer>
+    <footer>资料检索截至 2026 年 11 月 16 日。当前页面用于研究设计讨论；模型、筛查频率、AI 随访和临床路径仍需在本土队列中完成外部验证和影响评价。</footer>
   </main>
 
   <script>
@@ -425,6 +445,24 @@
         title: '患者结局模型',
         text: '面向已经确诊的年轻患者，预测复发、死亡、对侧癌、治疗毒性、生育和生活质量。现有 <35 岁回顾性数据库主要适合这一类。',
         items: ['可立即研究年龄、亚型、分期、治疗与 DFS/OS 的关系', '可扩展到生育力、恐惧复发、营养、体重和长期心血管/骨健康', '不能把病例库直接改名为普通人群发病风险队列']
+      }
+    };
+
+    const clinicalContent = {
+      diagnosis: {
+        title: '有症状 / 查体异常：年龄适配的影像—病理链',
+        text: '年轻不等于“先观察”，也不等于“所有人都做 MRI”。对可触及肿块或其他异常，先按年龄选择诊断性影像，再以 BI-RADS、临床一致性和病理结果闭环。',
+        items: ['<30 岁：乳腺超声通常作为初始检查；BI-RADS 4/5 或临床高度可疑时进入诊断性乳腺 X 线/DBT 与粗针活检', '30–39 岁：超声与诊断性乳腺 X 线/DBT 均可作为初始检查，结合症状、密度和风险决定组合', '影像阴性但查体高度可疑时不能被“阴性影像”安抚；应讨论组织学诊断', '妊娠/哺乳期需要乳腺影像、产科和肿瘤科共同决策，不把肿块自动归因于生理变化']
+      },
+      screening: {
+        title: '无症状高危：先算绝对风险，再决定影像',
+        text: '高危筛查不是把平均风险年轻女性统一改成高频影像，而是把风险模型、胚系变异、胸部放疗和家族史转化为可执行的筛查路径。',
+        items: ['ACR 建议在 25 岁前后完成风险评估，使高危女性有机会提前进入强化筛查', '高危语境通常包括终生风险 >20%、高外显率致病性基因、未检测的一级亲属和早年胸部放疗', '<30 岁高危女性增强 MRI 通常适宜；≥30 岁高危女性 MRI 与乳腺 X 线/DBT 通常适宜，具体起始年龄需结合风险来源', '中国路径要先外部验证、再校准和做决策曲线，不能直接把国外阈值当成本土政策']
+      },
+      followup: {
+        title: '已确诊：相同的肿瘤学骨架，不同的长期管理模块',
+        text: '治疗后核心仍是病史、查体和乳腺影像；年轻患者的增量在于把生育、卵巢功能、内分泌依从性、心理、性健康、体重营养、心血管和骨健康纳入连续随访。',
+        items: ['无症状患者不因年轻而常规增加 CT、PET-CT、肿瘤标志物或全身 MRI', '化疗前完成生育力咨询和转诊；GnRHa 可作为乳腺癌患者的辅助措施，但不替代已建立的保存方法', '高复发风险、局部进展或新辅助后残余病灶可进入增强随访；频率需要风险分层和本土影响评价', '老年患者则需把功能、共病、营养、认知、社会支持和预期寿命纳入治疗与随访决策']
       }
     };
 
@@ -480,6 +518,10 @@
       const item = modelContent[key];
       document.querySelector('#modelDetail').innerHTML = '<h3>' + item.title + '</h3><p>' + item.text + '</p><ul>' + item.items.map(x => '<li>' + x + '</li>').join('') + '</ul>';
     }
+    function renderClinical(key) {
+      const item = clinicalContent[key];
+      document.querySelector('#clinicalDetail').innerHTML = '<h3>' + item.title + '</h3><p>' + item.text + '</p><ul>' + item.items.map(x => '<li>' + x + '</li>').join('') + '</ul>';
+    }
     function renderFollow(key) {
       const item = followContent[key];
       document.querySelector('#followPanel').innerHTML = '<div><h3>' + item.title + '</h3><p class="lead">' + item.lead + '</p></div><div class="checklist">' + item.items.map(x => '<div class="check"><span class="check-mark">✓</span><span>' + x + '</span></div>').join('') + '</div>';
@@ -489,6 +531,7 @@
       document.querySelector('#aiPanel').innerHTML = '<h3>' + item.title + '</h3><p>' + item.text + '</p><ul>' + item.items.map(x => '<li>' + x + '</li>').join('') + '</ul>';
     }
     renderModel('incidence');
+    renderClinical('diagnosis');
     renderFollow('unaffected');
     renderAI('patient');
     document.querySelector('#routePanel').innerHTML = routeContent[0];
@@ -508,12 +551,20 @@
         document.querySelectorAll('.question-card').forEach(card => { card.hidden = filter !== 'all' && card.dataset.group !== filter; });
       });
     });
-    document.querySelectorAll('.model-tab').forEach(button => {
+    document.querySelectorAll('.model-tab:not(.clinical-tab)').forEach(button => {
       button.addEventListener('click', () => {
         document.querySelectorAll('.model-tab').forEach(item => { item.classList.remove('active'); item.setAttribute('aria-selected', 'false'); });
         button.classList.add('active');
         button.setAttribute('aria-selected', 'true');
         renderModel(button.dataset.model);
+      });
+    });
+    document.querySelectorAll('.clinical-tab').forEach(button => {
+      button.addEventListener('click', () => {
+        document.querySelectorAll('.clinical-tab').forEach(item => { item.classList.remove('active'); item.setAttribute('aria-selected', 'false'); });
+        button.classList.add('active');
+        button.setAttribute('aria-selected', 'true');
+        renderClinical(button.dataset.clinical);
       });
     });
     document.querySelectorAll('.route-step').forEach(step => {
