@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="年轻乳腺癌共识诊疗流程、筛查随访差异与研究问题调研报告">
+  <title>年轻乳腺癌｜共识诊疗流程与年龄差异</title>
+  <link rel="icon" type="image/svg+xml" href="breast-cancer-ribbon-mark.svg">
+  <style>
+    :root {
+      --ink: #242332;
+      --muted: #6c6b78;
+      --line: #e7e4ea;
+      --paper: #fbfaf8;
+      --panel: #fff;
+      --plum: #8c3c61;
+      --plum-dark: #5c2844;
+      --plum-soft: #f7e9ef;
+      --blue: #2b6688;
+      --blue-soft: #eaf3f7;
+      --green: #32725f;
+      --green-soft: #e9f3ef;
+      --gold: #aa6d27;
+      --gold-soft: #fbf1df;
+      --shadow: 0 20px 60px rgba(56, 38, 49, .08);
+      --radius: 20px;
+      --max: 1160px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; color: var(--ink); background: var(--paper); font-family: "Segoe UI", "Microsoft YaHei", system-ui, sans-serif; line-height: 1.7; }
+    a { color: var(--plum); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    button { font: inherit; }
+    .topbar { position: sticky; top: 0; z-index: 10; background: rgba(251,250,248,.92); border-bottom: 1px solid rgba(231,228,234,.94); backdrop-filter: blur(16px); }
+    .topbar-inner { max-width: var(--max); margin: auto; padding: 13px 24px; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+    .brand { display: flex; align-items: center; gap: 10px; color: var(--ink); font-weight: 700; white-space: nowrap; }
+    .brand-mark { width: 32px; height: 32px; display: grid; place-items: center; }
+    .brand-mark img { width: 32px; height: 32px; }
+    .nav { display: flex; gap: 5px; overflow-x: auto; scrollbar-width: none; }
+    .nav::-webkit-scrollbar { display: none; }
+    .nav a { padding: 7px 10px; color: var(--muted); border-radius: 9px; white-space: nowrap; font-size: 13px; }
+    .nav a:hover { color: var(--plum-dark); background: var(--plum-soft); text-decoration: none; }
+    .shell { max-width: var(--max); margin: auto; padding: 0 24px 72px; }
+    .hero { display: grid; grid-template-columns: minmax(0,1.2fr) minmax(300px,.8fr); gap: 48px; align-items: end; padding: 78px 0 42px; }
+    .eyebrow { color: var(--plum); text-transform: uppercase; letter-spacing: .13em; font-size: 12px; font-weight: 700; }
+    h1, h2, h3, p { margin: 0; }
+    h1 { max-width: 780px; margin-top: 13px; font-size: clamp(39px, 6vw, 76px); line-height: 1.02; letter-spacing: -.06em; }
+    .hero-lede { max-width: 760px; margin-top: 22px; color: var(--muted); font-size: 19px; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 24px; }
+    .pill { display: inline-flex; padding: 6px 11px; border-radius: 99px; color: var(--muted); background: #f0efee; font-size: 13px; }
+    .pill.plum { color: var(--plum-dark); background: var(--plum-soft); }
+    .pill.blue { color: #245873; background: var(--blue-soft); }
+    .pill.green { color: #275b4b; background: var(--green-soft); }
+    .hero-note { padding: 24px 0 24px 25px; border-left: 3px solid var(--plum); }
+    .hero-note strong { display: block; font-size: 22px; line-height: 1.3; }
+    .hero-note p { margin-top: 10px; color: var(--muted); font-size: 14px; }
+    section { scroll-margin-top: 80px; padding: 46px 0; }
+    .section-heading { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 23px; }
+    .section-heading h2 { margin-top: 2px; font-size: clamp(28px, 4vw, 43px); line-height: 1.1; letter-spacing: -.04em; }
+    .section-heading p { max-width: 540px; color: var(--muted); font-size: 15px; }
+    .stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
+    .stat { padding: 20px; border-radius: var(--radius); background: var(--panel); box-shadow: var(--shadow); border-top: 3px solid var(--plum); }
+    .stat:nth-child(2) { border-color: var(--blue); }
+    .stat:nth-child(3) { border-color: var(--green); }
+    .stat:nth-child(4) { border-color: var(--gold); }
+    .stat-number { font-size: 31px; line-height: 1; font-weight: 700; letter-spacing: -.05em; }
+    .stat h3 { margin-top: 10px; font-size: 15px; }
+    .stat p { margin-top: 5px; color: var(--muted); font-size: 13px; }
+    .callout { padding: 22px 24px; border-radius: var(--radius); color: #fff; background: linear-gradient(120deg, var(--plum-dark), #914469); box-shadow: var(--shadow); }
+    .callout strong { font-size: 21px; }
+    .callout p { margin-top: 6px; color: rgba(255,255,255,.84); font-size: 14px; }
+    .flow-layout { display: grid; grid-template-columns: .78fr 1.22fr; gap: 18px; align-items: start; }
+    .flow-tabs { display: grid; gap: 9px; }
+    .flow-tab { text-align: left; padding: 16px 18px; border: 1px solid var(--line); border-radius: 15px; background: var(--panel); cursor: pointer; }
+    .flow-tab:hover, .flow-tab.active { border-color: var(--plum); background: var(--plum-soft); }
+    .flow-tab strong { display: block; font-size: 17px; }
+    .flow-tab span { display: block; margin-top: 4px; color: var(--muted); font-size: 13px; }
+    .flow-detail { min-height: 375px; padding: 26px; border-radius: var(--radius); background: var(--panel); box-shadow: var(--shadow); }
+    .flow-detail h3 { font-size: 26px; line-height: 1.25; }
+    .flow-detail .lead { margin-top: 9px; color: var(--muted); }
+    .flow-steps { display: grid; gap: 11px; margin-top: 21px; }
+    .flow-step { display: grid; grid-template-columns: 32px 1fr; gap: 12px; align-items: start; }
+    .flow-step-no { width: 28px; height: 28px; display: grid; place-items: center; color: #fff; border-radius: 50%; background: var(--plum); font-size: 12px; font-weight: 700; }
+    .flow-step h4 { margin: 0; font-size: 15px; }
+    .flow-step p { margin-top: 2px; color: var(--muted); font-size: 13px; }
+    .boundary { margin-top: 20px; padding: 13px 15px; border-radius: 12px; color: #6d4c1f; background: var(--gold-soft); font-size: 13px; }
+    .compare-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); box-shadow: var(--shadow); }
+    table { width: 100%; min-width: 780px; border-collapse: collapse; font-size: 14px; }
+    th, td { padding: 15px 16px; border-bottom: 1px solid var(--line); vertical-align: top; text-align: left; }
+    th { color: var(--plum-dark); background: var(--plum-soft); font-size: 13px; }
+    tr:last-child td { border-bottom: 0; }
+    td:first-child { width: 17%; color: var(--ink); font-weight: 700; }
+    td { color: var(--muted); }
+    .audit-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; }
+    .audit-card { padding: 21px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); }
+    .audit-card .tag { display: inline-flex; padding: 4px 8px; border-radius: 99px; color: var(--plum-dark); background: var(--plum-soft); font-size: 12px; font-weight: 700; }
+    .audit-card:nth-child(2) .tag { color: #245873; background: var(--blue-soft); }
+    .audit-card:nth-child(3) .tag { color: #275b4b; background: var(--green-soft); }
+    .audit-card:nth-child(4) .tag { color: #6d4c1f; background: var(--gold-soft); }
+    .audit-card h3 { margin-top: 10px; font-size: 19px; }
+    .audit-card p { margin-top: 8px; color: var(--muted); font-size: 14px; }
+    .audit-card details { margin-top: 13px; border-top: 1px solid var(--line); }
+    .audit-card summary { padding-top: 11px; color: var(--plum); cursor: pointer; font-size: 13px; font-weight: 700; }
+    .audit-card details p { margin-top: 4px; font-size: 13px; }
+    .question-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+    .question { padding: 19px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); }
+    .question .priority { color: var(--plum); font-size: 12px; font-weight: 700; }
+    .question h3 { margin-top: 7px; font-size: 17px; line-height: 1.4; }
+    .question p { margin-top: 8px; color: var(--muted); font-size: 13px; }
+    .refs { columns: 2; column-gap: 38px; }
+    .ref { break-inside: avoid; margin-bottom: 11px; color: var(--muted); font-size: 13px; }
+    .ref a { font-weight: 600; }
+    .bottom-bar { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+    footer { margin-top: 25px; padding-top: 26px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+    @media (max-width: 900px) { .hero, .flow-layout { grid-template-columns: 1fr; } .stats { grid-template-columns: repeat(2,1fr); } .question-grid { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 620px) { .topbar-inner, .shell { padding-left: 16px; padding-right: 16px; } .brand-text { display: none; } .hero { padding-top: 49px; } h1 { font-size: 44px; } .section-heading { display: block; } .section-heading p { margin-top: 10px; } .stats, .audit-grid, .question-grid { grid-template-columns: 1fr; } .refs { columns: 1; } .flow-detail { padding: 21px; } }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#top"><span class="brand-mark"><img src="breast-cancer-ribbon-mark.svg" alt=""></span><span class="brand-text">年轻乳腺癌 · 共识流程报告</span></a>
+      <nav class="nav" aria-label="报告导航">
+        <a href="#conclusion">结论</a><a href="#flow">诊疗流程</a><a href="#compare">年龄差异</a><a href="#audit">证据审查</a><a href="#questions">研究问题</a><a href="#references">参考文献</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="shell" id="top">
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Consensus pathway · 2026.11.16</div>
+        <h1>年轻乳腺癌，关键不是多做检查，而是走对路径。</h1>
+        <p class="hero-lede">以诊断年龄 &lt;35 岁为项目操作性定义，梳理共识中的诊疗流程，并比较年轻患者与年龄较大患者在筛查、治疗和随访上的真正差异。</p>
+        <div class="hero-meta"><span class="pill plum">共识流程</span><span class="pill blue">筛查与诊断</span><span class="pill green">长期随访</span></div>
+      </div>
+      <div class="hero-note"><strong>先拆开四条路径</strong><p>平均风险筛查、有症状诊断、未患癌高危筛查、已确诊后随访不能用同一个模型或同一套影像频率处理。</p></div>
+    </section>
+
+    <section id="conclusion">
+      <div class="section-heading"><div><div class="eyebrow">Executive summary</div><h2>四个判断，逐条校准。</h2></div><p>证据支持方向性差异，但不支持把年轻年龄写成单一、无条件的生物学因果。</p></div>
+      <div class="stats">
+        <article class="stat"><div class="stat-number">更高风险</div><h3>侵袭性表型更常见</h3><p>高分级、较高 Ki-67、HER2 阳性/TNBC 和较差 DFS 在部分队列中更常见。</p></article>
+        <article class="stat"><div class="stat-number">91.2%</div><h3>中国队列化疗率</h3><p>≤35 岁组高于 35–50 岁和 >50 岁组，但受亚型、分期和治疗时代影响。</p></article>
+        <article class="stat"><div class="stat-number">不绝对</div><h3>TNBC 年龄梯度</h3><p>方向性证据存在，但中国多中心数据中的绝对差距较小。</p></article>
+        <article class="stat"><div class="stat-number">更复杂</div><h3>不是简单“更难治”</h3><p>复发风险、生育、内分泌、心理和长期毒性共同增加管理复杂度。</p></article>
+      </div>
+      <div class="callout" style="margin-top:22px"><strong>最稳妥的表述：年轻患者复发风险更高，治疗与长期生活管理更复杂；不能直接等同于普遍化疗耐药。</strong><p>荟萃分析同时提示年轻患者病理完全缓解率更高，说明“结局更差”和“化疗不敏感”不是同一个命题。</p></div>
+    </section>
+
+    <section id="flow">
+      <div class="section-heading"><div><div class="eyebrow">Clinical pathway</div><h2>三条流程，三个决策起点。</h2></div><p>点击左侧路径，查看共识与公开适宜性标准如何落到门诊动作。</p></div>
+      <div class="flow-layout">
+        <div class="flow-tabs" role="tablist" aria-label="诊疗路径">
+          <button class="flow-tab active" data-flow="diagnosis" role="tab" aria-selected="true"><strong>有症状：先完成诊断链</strong><span>超声 / 诊断性乳腺 X 线或 DBT / 病理</span></button>
+          <button class="flow-tab" data-flow="screening" role="tab" aria-selected="false"><strong>无症状高危：按绝对风险筛查</strong><span>风险评估 / 遗传 / MRI 与乳腺 X 线组合</span></button>
+          <button class="flow-tab" data-flow="followup" role="tab" aria-selected="false"><strong>已确诊：基础随访 + 年轻专属模块</strong><span>复发监测 / 生育 / 内分泌 / 长期生活</span></button>
+        </div>
+        <div class="flow-detail" id="flowDetail" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section id="compare">
+      <div class="section-heading"><div><div class="eyebrow">Young versus older</div><h2>年轻与年龄较大患者，差别在哪里？</h2></div><p>基础肿瘤学流程相通，差别主要落在筛查入口、治疗选择和长期管理内容。</p></div>
+      <div class="compare-wrap"><table><thead><tr><th>维度</th><th>&lt;35 岁患者</th><th>年龄较大 / 老年患者</th></tr></thead><tbody>
+        <tr><td>平均风险筛查</td><td>通常不进入 35 岁前常规乳腺 X 线筛查；有症状及时进入诊断路径。</td><td>平均风险人群更多进入组织化乳腺 X 线筛查，起始年龄和频率随指南而异。</td></tr>
+        <tr><td>高危筛查</td><td>按绝对风险、胚系变异、家族史、胸部放疗和密度决定 MRI 等强化检查，不是年轻就统一做 MRI。</td><td>风险模型仍然重要；共病、预期寿命和筛查收益影响是否继续强化筛查。</td></tr>
+        <tr><td>有症状诊断</td><td>&lt;30 岁肿块通常先超声；30–39 岁超声与诊断性乳腺 X 线/DBT 均可作为初始检查。</td><td>≥40 岁可触及肿块通常先诊断性 DBT/乳腺 X 线，超声用于补充和进一步分层。</td></tr>
+        <tr><td>系统治疗</td><td>化疗和卵巢功能抑制使用更多；HR 阳性患者需同时处理内分泌依从性、生育和长期症状。</td><td>不能用年龄直接减量；应以功能、共病、营养、认知、社会支持和预期寿命决定治疗强度。</td></tr>
+        <tr><td>治疗后随访</td><td>复发监测基础不变，额外纳入生育、妊娠、性健康、心理、体重营养、心血管和骨健康。</td><td>额外关注共病、跌倒、骨折、认知、多重用药、功能和照护者支持。</td></tr>
+      </tbody></table></div>
+    </section>
+
+    <section id="audit">
+      <div class="section-heading"><div><div class="eyebrow">Evidence audit</div><h2>把四个常见说法改成可检验命题。</h2></div><p>展开卡片查看证据支持、限制和适合进入数据库的变量。</p></div>
+      <div class="audit-grid">
+        <article class="audit-card"><span class="tag">支持但有条件</span><h3>“年轻乳腺癌侵袭性更强”</h3><p>多个队列观察到高分级、淋巴血管侵犯、较高增殖和较差复发结局；但年龄效应会随分子亚型和治疗时代改变。</p><details><summary>研究中应记录什么？</summary><p>分级、Ki-67、LVI、T/N 分期、ER/PR/HER2、诊断延迟、治疗完整性和年龄连续变量。</p></details></article>
+        <article class="audit-card"><span class="tag">中国队列支持</span><h3>“年轻患者化疗用得更多”</h3><p>中国多中心队列中 ≤35 岁化疗率 91.2%，>50 岁为 83.9%；蒽环类—紫杉类方案也更常见。</p><details><summary>为什么不能直接归因于年龄？</summary><p>亚型、分期、治疗年代、医生风险判断和患者耐受性都会同时影响化疗决策，需要做标准化和因果分解。</p></details></article>
+        <article class="audit-card"><span class="tag">不宜绝对化</span><h3>“三阴性比例一定更高”</h3><p>年轻年龄与 TNBC 的方向性关联存在，但中国多中心数据为 10.8%、9.6% 和 10.2%，年龄梯度有限。</p><details><summary>适合怎么研究？</summary><p>统一病理标准，按地区、分期、治疗时代校正，并分析 TNBC 与胚系 BRCA、pCR、早期复发和治疗获益的交互。</p></details></article>
+        <article class="audit-card"><span class="tag">概念需改写</span><h3>“年轻患者更难治”</h3><p>更准确的命题是复发风险更高、治疗选择与长期生活管理更复杂；不能把结局更差直接写成普遍化疗耐药。</p><details><summary>关键反证是什么？</summary><p>荟萃分析提示年轻患者 pCR 更高，因此应分开研究生物学风险、复发模式、治疗依从性和生育冲突。</p></details></article>
+      </div>
+    </section>
+
+    <section id="questions">
+      <div class="section-heading"><div><div class="eyebrow">Research agenda</div><h2>最值得优先做的研究问题。</h2></div><p>把共识差异转化为病例库、前瞻性队列和 AI 随访端可以真正回答的终点。</p></div>
+      <div class="question-grid">
+        <article class="question"><span class="priority">P0 · 病例库</span><h3>&lt;35 岁年龄效应是否被亚型、分期、治疗和诊断延迟解释？</h3><p>多中心回顾性队列，年龄连续建模，加入亚型交互和时间外验证；终点包括 DFS、早期复发和 OS。</p></article>
+        <article class="question"><span class="priority">P0 · 治疗决策</span><h3>年轻患者化疗更多，究竟由肿瘤风险还是临床选择驱动？</h3><p>做分期/亚型标准化、治疗选择模型和中介分析，记录化疗启动、方案强度、完成度、毒性和卵巢功能。</p></article>
+        <article class="question"><span class="priority">P0 · 筛查队列</span><h3>中国 &lt;35 岁高危女性能否用风险分层减少过度检查？</h3><p>建立未患癌前瞻性队列，先外部验证和再校准现有模型，再做筛查路径影响评价。</p></article>
+        <article class="question"><span class="priority">P1 · 诊断延迟</span><h3>乳腺密度、妊娠/哺乳和就诊路径如何影响分期？</h3><p>连接症状—就诊—影像—病理时间链与患者访谈，观察晚期分期、节点阳性和间期就诊。</p></article>
+        <article class="question"><span class="priority">P1 · 长期管理</span><h3>哪些患者会因生育、内分泌症状或心理负担而降低依从性？</h3><p>重复 PRO 联结处方、取药、治疗和生殖中心记录，观察内分泌持续使用、治疗中断、妊娠和生活质量。</p></article>
+        <article class="question"><span class="priority">P1 · AI 随访</span><h3>AI 随访能否缩短支持性照护需求的升级时间？</h3><p>用 stepped-wedge 或务实性实施研究评价触达率、响应时间、转诊完成、患者负担、误报和漏报。</p></article>
+      </div>
+    </section>
+
+    <section id="references">
+      <div class="section-heading"><div><div class="eyebrow">Reference trail</div><h2>关键共识与研究。</h2></div><p>正文结论以指南、队列和荟萃分析为主；中文数据库尚未在当前环境中完整覆盖。</p></div>
+      <div class="refs">
+        <div class="ref">[1] Paluch-Shimon et al. BCY5, <em>Annals of Oncology</em>, 2022. <a href="https://doi.org/10.1016/j.annonc.2022.07.007" target="_blank" rel="noreferrer">DOI</a></div>
+        <div class="ref">[2] 中国年轻乳腺癌诊疗与生育力保护专家共识, <em>中华肿瘤杂志</em>, 2019. <a href="https://doi.org/10.3760/cma.j.issn.0253-3766.2019.07.002" target="_blank" rel="noreferrer">DOI</a></div>
+        <div class="ref">[3] Loibl et al. ESMO early breast cancer guideline, 2024. <a href="https://doi.org/10.1016/j.annonc.2023.11.016" target="_blank" rel="noreferrer">DOI</a></div>
+        <div class="ref">[4] Park et al. Pan-Asian adapted ESMO guideline, <em>ESMO Open</em>, 2024. <a href="https://doi.org/10.1016/j.esmoop.2024.102974" target="_blank" rel="noreferrer">DOI</a></div>
+        <div class="ref">[5] Su et al. ASCO fertility preservation guideline update, 2025. <a href="https://doi.org/10.1200/JCO-24-02782" target="_blank" rel="noreferrer">DOI</a></div>
+        <div class="ref">[6] Nahleh et al. ASCO follow-up and surveillance update, 2026. <a href="https://doi.org/10.1200/JCO-26-01700" target="_blank" rel="noreferrer">DOI</a></div>
+        <div class="ref">[7] Monticciolo et al. ACR higher-than-average risk screening recommendations, 2023. <a href="https://doi.org/10.1016/j.jacr.2023.04.002" target="_blank" rel="noreferrer">DOI</a></div>
+        <div class="ref">[8] Klein et al. ACR palpable breast masses update, 2023. <a href="https://doi.org/10.1016/j.jacr.2023.02.013" target="_blank" rel="noreferrer">DOI</a></div>
+        <div class="ref">[9] Yang et al. Multi-institutional report from China, <em>Frontiers in Oncology</em>, 2022. <a href="https://doi.org/10.3389/fonc.2022.783487" target="_blank" rel="noreferrer">DOI</a></div>
+        <div class="ref">[10] Lyu et al. Very young age stratification, <em>The Oncologist</em>, 2026. <a href="https://doi.org/10.1093/oncolo/oyag244" target="_blank" rel="noreferrer">DOI</a></div>
+        <div class="ref">[11] Li et al. Young age prognosis systematic review and meta-analysis, 2025. <a href="https://doi.org/10.2174/0115680096369006250909091053" target="_blank" rel="noreferrer">DOI</a></div>
+        <div class="ref">[12] Rosenberg et al. Young Women’s Breast Cancer Study, <em>BMJ Open</em>, 2024. <a href="https://doi.org/10.1136/bmjopen-2023-081157" target="_blank" rel="noreferrer">DOI</a></div>
+      </div>
+      <div class="bottom-bar"><a class="pill plum" href="年轻乳腺癌共识诊疗流程与年龄差异调研.md">打开完整 Markdown 报告 →</a><a class="pill blue" href="index.html">回到年轻乳腺癌研究地图 →</a></div>
+    </section>
+
+    <footer>资料检索截至 2026 年 11 月 16 日。本页面用于研究设计与临床路径讨论；筛查频率、治疗方案和 AI 随访规则仍需在本土队列中完成外部验证和影响评价。</footer>
+  </main>
+
+  <script>
+    const flowContent = {
+      diagnosis: {
+        title: '有症状 / 查体异常：年龄适配的影像—病理链',
+        lead: '年轻不等于“先观察”，也不等于“所有人都做 MRI”。先按年龄选择诊断性影像，再以 BI-RADS、临床一致性和病理结果闭环。',
+        steps: [
+          ['01', '先判断年龄与场景', '<30 岁可触及肿块通常先做乳腺超声；30–39 岁超声与诊断性乳腺 X 线/DBT 均通常适宜。'],
+          ['02', '对可疑病灶完成病理', 'BI-RADS 4/5 或临床高度可疑时，进入诊断性乳腺 X 线/DBT 和影像引导粗针活检。'],
+          ['03', '处理临床—影像不一致', '影像阴性不能阻止对临床高度可疑病灶进行组织学诊断；妊娠/哺乳期需要多学科决策。']
+        ],
+        boundary: 'BI-RADS 是影像评估与病灶管理框架，不是普通女性未来 5 年/10 年发病风险模型。'
+      },
+      screening: {
+        title: '无症状高危：先算绝对风险，再决定影像',
+        lead: '高危筛查不是把平均风险年轻女性统一改成高频影像，而是把风险模型、胚系变异、胸部放疗和家族史转化为可执行路径。',
+        steps: [
+          ['01', '在 25 岁前后完成风险评估', '综合家族史、胚系变异、胸部放疗、既往高危病变、乳腺密度和个人史。'],
+          ['02', '区分平均风险与高危', 'ACR 高危语境通常包括终生风险 >20%、高外显率致病性基因、未检测的一级亲属和早年胸部放疗。'],
+          ['03', '按风险来源选择影像', '<30 岁高危女性增强 MRI 通常适宜；≥30 岁高危女性 MRI 与乳腺 X 线/DBT 通常适宜，起始年龄需结合风险来源。']
+        ],
+        boundary: '中国路径应先外部验证与再校准现有模型，再用决策曲线和影响评价决定筛查阈值，不能直接移植国外阈值。'
+      },
+      followup: {
+        title: '已确诊：相同的肿瘤学骨架，不同的长期管理模块',
+        lead: '治疗后核心仍是病史、查体和乳腺影像；年轻患者的增量在于连续管理生育、内分泌、心理和长期毒性。',
+        steps: [
+          ['01', '按复发风险安排基础随访', 'ASCO 传统骨架为前 3 年每 3–6 个月，第 4–5 年每 6–12 个月，此后每年；保乳患者按时间窗完成治疗后乳腺 X 线。'],
+          ['02', '不盲目扩大无症状检查', '无症状患者不因年轻而常规增加 CT、PET-CT、肿瘤标志物或全身 MRI；高风险或残余病灶患者可提高随访强度。'],
+          ['03', '增加年轻患者长期模块', '化疗前完成生育力咨询；随访内分泌依从性、卵巢功能、妊娠计划、心理、性健康、体重营养、心血管和骨健康。']
+        ],
+        boundary: '老年患者也不能简单等于“少治疗”：功能、共病、营养、认知、社会支持和预期寿命应进入共同决策。'
+      }
+    };
+
+    function renderFlow(key) {
+      const item = flowContent[key];
+      const steps = item.steps.map(step => '<div class="flow-step"><span class="flow-step-no">' + step[0] + '</span><div><h4>' + step[1] + '</h4><p>' + step[2] + '</p></div></div>').join('');
+      document.querySelector('#flowDetail').innerHTML = '<h3>' + item.title + '</h3><p class="lead">' + item.lead + '</p><div class="flow-steps">' + steps + '</div><div class="boundary">' + item.boundary + '</div>';
+    }
+
+    renderFlow('diagnosis');
+    document.querySelectorAll('.flow-tab').forEach(button => {
+      button.addEventListener('click', () => {
+        document.querySelectorAll('.flow-tab').forEach(item => { item.classList.remove('active'); item.setAttribute('aria-selected', 'false'); });
+        button.classList.add('active');
+        button.setAttribute('aria-selected', 'true');
+        renderFlow(button.dataset.flow);
+      });
+    });
+  </script>
+</body>
+</html>
