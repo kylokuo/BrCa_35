@@ -4,6 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="年轻乳腺癌共识诊疗流程、筛查随访差异与研究问题调研报告">
+  <meta name="theme-color" content="#8c3c61">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="年轻乳腺癌｜共识诊疗流程与年龄差异">
+  <meta property="og:description" content="年轻乳腺癌的诊疗流程、筛查随访差异、证据审查与研究问题。">
+  <meta property="og:url" content="https://kylokuo.github.io/BrCa_35/young-breast-cancer-consensus.html">
+  <link rel="canonical" href="https://kylokuo.github.io/BrCa_35/young-breast-cancer-consensus.html">
   <title>年轻乳腺癌｜共识诊疗流程与年龄差异</title>
   <link rel="icon" type="image/svg+xml" href="breast-cancer-ribbon-mark.svg">
   <style>
@@ -28,10 +34,14 @@
     }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
     body { margin: 0; color: var(--ink); background: var(--paper); font-family: "Segoe UI", "Microsoft YaHei", system-ui, sans-serif; line-height: 1.7; }
     a { color: var(--plum); text-decoration: none; }
     a:hover { text-decoration: underline; }
     button { font: inherit; }
+    :focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+    .skip-link { position: fixed; left: 16px; top: -60px; z-index: 30; padding: 10px 14px; border-radius: 10px; color: #fff; background: var(--plum-dark); font-weight: 700; transition: top .18s ease; }
+    .skip-link:focus { top: 12px; }
     .topbar { position: sticky; top: 0; z-index: 10; background: rgba(251,250,248,.92); border-bottom: 1px solid rgba(231,228,234,.94); backdrop-filter: blur(16px); }
     .topbar-inner { max-width: var(--max); margin: auto; padding: 13px 24px; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
     .brand { display: flex; align-items: center; gap: 10px; color: var(--ink); font-weight: 700; white-space: nowrap; }
@@ -87,6 +97,7 @@
     .boundary { margin-top: 20px; padding: 13px 15px; border-radius: 12px; color: #6d4c1f; background: var(--gold-soft); font-size: 13px; }
     .compare-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); box-shadow: var(--shadow); }
     table { width: 100%; min-width: 780px; border-collapse: collapse; font-size: 14px; }
+    caption { padding: 13px 16px; text-align: left; color: var(--muted); font-weight: 700; }
     th, td { padding: 15px 16px; border-bottom: 1px solid var(--line); vertical-align: top; text-align: left; }
     th { color: var(--plum-dark); background: var(--plum-soft); font-size: 13px; }
     tr:last-child td { border-bottom: 0; }
@@ -112,22 +123,24 @@
     .ref { break-inside: avoid; margin-bottom: 11px; color: var(--muted); font-size: 13px; }
     .ref a { font-weight: 600; }
     .bottom-bar { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+    .disclaimer { margin-top: 20px; padding: 13px 15px; border-radius: 12px; color: #6d4c1f; background: var(--gold-soft); font-size: 13px; }
     footer { margin-top: 25px; padding-top: 26px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
     @media (max-width: 900px) { .hero, .flow-layout { grid-template-columns: 1fr; } .stats { grid-template-columns: repeat(2,1fr); } .question-grid { grid-template-columns: repeat(2,1fr); } }
     @media (max-width: 620px) { .topbar-inner, .shell { padding-left: 16px; padding-right: 16px; } .brand-text { display: none; } .hero { padding-top: 49px; } h1 { font-size: 44px; } .section-heading { display: block; } .section-heading p { margin-top: 10px; } .stats, .audit-grid, .question-grid { grid-template-columns: 1fr; } .refs { columns: 1; } .flow-detail { padding: 21px; } }
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">跳到主要内容</a>
   <header class="topbar">
     <div class="topbar-inner">
-      <a class="brand" href="#top"><span class="brand-mark"><img src="breast-cancer-ribbon-mark.svg" alt=""></span><span class="brand-text">年轻乳腺癌 · 共识流程报告</span></a>
+      <a class="brand" href="#main-content"><span class="brand-mark"><img src="breast-cancer-ribbon-mark.svg" alt=""></span><span class="brand-text">年轻乳腺癌 · 共识流程报告</span></a>
       <nav class="nav" aria-label="报告导航">
         <a href="#conclusion">结论</a><a href="#flow">诊疗流程</a><a href="#compare">年龄差异</a><a href="#audit">证据审查</a><a href="#questions">研究问题</a><a href="#references">参考文献</a>
       </nav>
     </div>
   </header>
 
-  <main class="shell" id="top">
+  <main class="shell" id="main-content" tabindex="-1">
     <section class="hero">
       <div>
         <div class="eyebrow">Consensus pathway · 2026.11.16</div>
@@ -153,17 +166,17 @@
       <div class="section-heading"><div><div class="eyebrow">Clinical pathway</div><h2>三条流程，三个决策起点。</h2></div><p>点击左侧路径，查看共识与公开适宜性标准如何落到门诊动作。</p></div>
       <div class="flow-layout">
         <div class="flow-tabs" role="tablist" aria-label="诊疗路径">
-          <button class="flow-tab active" data-flow="diagnosis" role="tab" aria-selected="true"><strong>有症状：先完成诊断链</strong><span>超声 / 诊断性乳腺 X 线或 DBT / 病理</span></button>
-          <button class="flow-tab" data-flow="screening" role="tab" aria-selected="false"><strong>无症状高危：按绝对风险筛查</strong><span>风险评估 / 遗传 / MRI 与乳腺 X 线组合</span></button>
-          <button class="flow-tab" data-flow="followup" role="tab" aria-selected="false"><strong>已确诊：基础随访 + 年轻专属模块</strong><span>复发监测 / 生育 / 内分泌 / 长期生活</span></button>
+          <button class="flow-tab active" id="flow-diagnosis-tab" data-flow="diagnosis" role="tab" aria-selected="true" aria-controls="flowDetail"><strong>有症状：先完成诊断链</strong><span>超声 / 诊断性乳腺 X 线或 DBT / 病理</span></button>
+          <button class="flow-tab" id="flow-screening-tab" data-flow="screening" role="tab" aria-selected="false" aria-controls="flowDetail"><strong>无症状高危：按绝对风险筛查</strong><span>风险评估 / 遗传 / MRI 与乳腺 X 线组合</span></button>
+          <button class="flow-tab" id="flow-followup-tab" data-flow="followup" role="tab" aria-selected="false" aria-controls="flowDetail"><strong>已确诊：基础随访 + 年轻专属模块</strong><span>复发监测 / 生育 / 内分泌 / 长期生活</span></button>
         </div>
-        <div class="flow-detail" id="flowDetail" aria-live="polite"></div>
+        <div class="flow-detail" id="flowDetail" role="tabpanel" aria-labelledby="flow-diagnosis-tab" tabindex="0" aria-live="polite"></div>
       </div>
     </section>
 
     <section id="compare">
       <div class="section-heading"><div><div class="eyebrow">Young versus older</div><h2>年轻与年龄较大患者，差别在哪里？</h2></div><p>基础肿瘤学流程相通，差别主要落在筛查入口、治疗选择和长期管理内容。</p></div>
-      <div class="compare-wrap"><table><thead><tr><th>维度</th><th>&lt;35 岁患者</th><th>年龄较大 / 老年患者</th></tr></thead><tbody>
+      <div class="compare-wrap"><table><caption>年轻患者与年龄较大患者的筛查、治疗和随访差异</caption><thead><tr><th>维度</th><th>&lt;35 岁患者</th><th>年龄较大 / 老年患者</th></tr></thead><tbody>
         <tr><td>平均风险筛查</td><td>通常不进入 35 岁前常规乳腺 X 线筛查；有症状及时进入诊断路径。</td><td>平均风险人群更多进入组织化乳腺 X 线筛查，起始年龄和频率随指南而异。</td></tr>
         <tr><td>高危筛查</td><td>按绝对风险、胚系变异、家族史、胸部放疗和密度决定 MRI 等强化检查，不是年轻就统一做 MRI。</td><td>风险模型仍然重要；共病、预期寿命和筛查收益影响是否继续强化筛查。</td></tr>
         <tr><td>有症状诊断</td><td>&lt;30 岁肿块通常先超声；30–39 岁超声与诊断性乳腺 X 线/DBT 均可作为初始检查。</td><td>≥40 岁可触及肿块通常先诊断性 DBT/乳腺 X 线，超声用于补充和进一步分层。</td></tr>
@@ -210,9 +223,10 @@
         <div class="ref">[11] Li et al. Young age prognosis systematic review and meta-analysis, 2025. <a href="https://doi.org/10.2174/0115680096369006250909091053" target="_blank" rel="noreferrer">DOI</a></div>
         <div class="ref">[12] Rosenberg et al. Young Women’s Breast Cancer Study, <em>BMJ Open</em>, 2024. <a href="https://doi.org/10.1136/bmjopen-2023-081157" target="_blank" rel="noreferrer">DOI</a></div>
       </div>
-      <div class="bottom-bar"><a class="pill plum" href="年轻乳腺癌共识诊疗流程与年龄差异调研.md">打开完整 Markdown 报告 →</a><a class="pill blue" href="index.html">回到年轻乳腺癌研究地图 →</a></div>
+      <div class="bottom-bar"><a class="pill plum" href="年轻乳腺癌共识诊疗流程与年龄差异调研.md">打开完整 Markdown 报告 →</a><a class="pill green" href="young-breast-cancer-ai-product.html">查看全程诊疗与 AI 产品报告 →</a><a class="pill blue" href="index.html">回到年轻乳腺癌研究地图 →</a></div>
     </section>
 
+    <div class="disclaimer"><strong>使用边界：</strong>本页面用于研究设计与临床路径讨论，不构成个体化诊疗建议。筛查、治疗、停药、妊娠和急症处理必须由具备资质的临床团队依据最新指南与患者实际情况决定。</div>
     <footer>资料检索截至 2026 年 11 月 16 日。本页面用于研究设计与临床路径讨论；筛查频率、治疗方案和 AI 随访规则仍需在本土队列中完成外部验证和影响评价。</footer>
   </main>
 
@@ -262,6 +276,7 @@
         document.querySelectorAll('.flow-tab').forEach(item => { item.classList.remove('active'); item.setAttribute('aria-selected', 'false'); });
         button.classList.add('active');
         button.setAttribute('aria-selected', 'true');
+        document.querySelector('#flowDetail').setAttribute('aria-labelledby', button.id);
         renderFlow(button.dataset.flow);
       });
     });
