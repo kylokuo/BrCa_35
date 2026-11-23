@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const root = process.cwd();
-const htmlFiles = ['index.html', 'young-breast-cancer-research.html', 'young-breast-cancer-consensus.html', 'young-breast-cancer-ai-product.html'];
+const htmlFiles = ['index.html', 'young-breast-cancer-research.html', 'young-breast-cancer-consensus.html', 'young-breast-cancer-ai-product.html', 'young-breast-cancer-product-decision.html'];
 const errors = [];
 
 function read(file) {
@@ -45,6 +45,7 @@ for (const file of htmlFiles) {
 
 const index = read('index.html');
 if (index && !index.includes('young-breast-cancer-ai-product.html')) errors.push('index.html: missing AI product report link');
+if (index && !index.includes('young-breast-cancer-product-decision.html')) errors.push('index.html: missing product decision link');
 if (index && !index.includes('id="decision-matrix"')) errors.push('index.html: missing decision matrix');
 if (index && !index.includes('id="data-dictionary"')) errors.push('index.html: missing data dictionary');
 const alias = read('young-breast-cancer-research.html');
