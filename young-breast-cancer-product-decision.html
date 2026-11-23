@@ -93,24 +93,32 @@
     .section-heading h2 { font-size: clamp(26px, 3.6vw, 40px); line-height: 1.1; letter-spacing: -.04em; }
     .section-heading p { max-width: 520px; color: var(--muted); }
     .table-tip { margin-bottom: 10px; color: var(--muted); font-size: 13px; }
-    .table-wrap { overflow: auto; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); box-shadow: var(--shadow); }
-    table { width: 100%; min-width: 0; table-layout: fixed; border-collapse: separate; border-spacing: 0; font-size: 13px; }
-    th, td { padding: 11px 9px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; }
-    th { position: sticky; top: 57px; z-index: 4; color: var(--blue-dark); background: var(--blue-soft); font-size: 12px; }
-    th:first-child, td:first-child { width: 16%; min-width: 0; }
-    th:nth-child(2), td:nth-child(2) { width: 17%; }
-    th:nth-child(3), td:nth-child(3) { width: 24%; }
-    th:nth-child(4), td:nth-child(4) { width: 18%; }
-    th:nth-child(5), td:nth-child(5) { width: 9%; }
-    th:nth-child(6), td:nth-child(6) { width: 16%; }
-    th:first-child { z-index: 6; background: var(--blue-soft); }
-    td:first-child { background: var(--panel); }
-    tr:hover td { background: #fbfdfe; }
-    tr:hover td:first-child { background: #fbfdfe; }
-    tr.group-row td { position: static; padding: 10px 14px; color: var(--plum-dark); background: var(--plum-soft); font-size: 12px; font-weight: 700; letter-spacing: .02em; }
+    .table-wrap { overflow: visible; border: 0; background: transparent; box-shadow: none; }
+    table { width: 100%; min-width: 0; display: block; font-size: 13px; }
+    thead { display: none; }
+    tbody { display: grid; gap: 16px; }
+    tr[data-row] { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.2fr) minmax(0, 1.35fr) minmax(0, 1.15fr) minmax(0, 1fr); grid-template-areas: "feature feature feature feature feature" "existing change decision priority note"; overflow: hidden; border: 1px solid var(--line); border-radius: 15px; background: var(--panel); box-shadow: var(--shadow); }
+    tr[data-row] td { display: block; width: auto; min-width: 0; padding: 14px 16px; text-align: left; vertical-align: top; border-right: 1px solid var(--line); border-bottom: 0; overflow-wrap: anywhere; background: var(--panel); }
+    tr[data-row] td:first-child { grid-area: feature; display: flex; align-items: center; gap: 10px; padding: 14px 16px; border-right: 0; border-bottom: 1px solid var(--line); background: var(--blue-soft); }
+    tr[data-row] td:nth-child(2) { grid-area: existing; }
+    tr[data-row] td:nth-child(3) { grid-area: change; }
+    tr[data-row] td:nth-child(4) { grid-area: decision; }
+    tr[data-row] td:nth-child(5) { grid-area: priority; }
+    tr[data-row] td:nth-child(6) { grid-area: note; border-right: 0; }
+    tr[data-row] td:not(:first-child)::before { display: block; margin-bottom: 7px; color: var(--muted); font-size: 11px; font-weight: 700; line-height: 1.3; }
+    tr[data-row] td:nth-child(2)::before { content: "现有能力"; }
+    tr[data-row] td:nth-child(3)::before { content: "年轻乳腺癌需要增加或修改"; }
+    tr[data-row] td:nth-child(4)::before { content: "专家判断"; }
+    tr[data-row] td:nth-child(5)::before { content: "优先级"; }
+    tr[data-row] td:nth-child(6)::before { content: "专家备注"; }
+    tr[data-row]:hover td { background: #fbfdfe; }
+    tr[data-row]:hover td:first-child { background: var(--blue-soft); }
+    tr.group-row { display: block; padding-top: 6px; border: 0; box-shadow: none; background: transparent; }
+    tr.group-row td, tr.group-row td:first-child { display: block; padding: 12px 0 0; border: 0; background: transparent; color: var(--plum-dark); font-size: 12px; font-weight: 700; letter-spacing: .02em; }
     tr:last-child td { border-bottom: 0; }
     .feature-title { color: var(--ink); font-size: 14px; font-weight: 700; line-height: 1.35; }
     .feature-tag { display: inline-block; margin-top: 6px; padding: 2px 7px; border-radius: 999px; color: var(--blue-dark); background: var(--blue-soft); font-size: 11px; }
+    tr[data-row] .feature-tag { margin-top: 0; }
     .cell-copy { min-width: 0; max-width: none; color: var(--muted); line-height: 1.5; }
     .decision-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5px; min-width: 0; }
     .choice { display: flex; align-items: center; gap: 4px; min-height: 29px; padding: 4px 5px; border: 1px solid var(--line); border-radius: 8px; color: var(--muted); background: #fbfcfd; cursor: pointer; font-size: 12px; line-height: 1.25; }
@@ -120,7 +128,8 @@
     .priority-select { width: 100%; min-width: 0; padding: 7px 8px; border: 1px solid var(--line); border-radius: 8px; color: var(--ink); background: #fbfcfd; }
     .priority-select:focus { border-color: var(--blue); outline: 3px solid rgba(45, 98, 138, .14); }
     .note-field { width: 100%; min-width: 0; min-height: 68px; resize: vertical; line-height: 1.45; }
-    .empty-row td { padding: 22px; color: var(--muted); text-align: center; background: #fbfcfd; }
+    .empty-row { display: block; border: 1px solid var(--line); border-radius: 15px; background: var(--panel); }
+    .empty-row td { display: block; padding: 22px; color: var(--muted); text-align: center; background: #fbfcfd; }
     .final-panel { display: grid; grid-template-columns: 1fr 1.2fr; gap: 14px; margin-top: 16px; padding: 18px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); box-shadow: var(--shadow); }
     .final-panel h3 { font-size: 17px; }
     .final-panel p { margin-top: 4px; color: var(--muted); font-size: 13px; }
@@ -134,30 +143,22 @@
       .field-grid { grid-template-columns: repeat(2, 1fr); }
       .summary { grid-template-columns: repeat(2, 1fr); }
       .final-panel { grid-template-columns: 1fr; }
+      tr[data-row] { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-areas: "feature feature" "existing change" "decision priority" "note note"; }
+      tr[data-row] td:nth-child(2), tr[data-row] td:nth-child(4) { border-right: 1px solid var(--line); }
+      tr[data-row] td:nth-child(3), tr[data-row] td:nth-child(5) { border-right: 0; }
     }
     @media (max-width: 760px) {
-      .table-wrap { overflow: visible; border: 0; background: transparent; box-shadow: none; }
-      table { display: block; min-width: 0; }
-      thead { display: none; }
-      tbody { display: grid; gap: 12px; }
-      tr[data-row] { display: grid; grid-template-columns: 1fr; overflow: hidden; border: 1px solid var(--line); border-radius: 15px; background: var(--panel); box-shadow: var(--shadow); }
-      tr[data-row] td, tr[data-row] td:first-child { position: static; display: block; width: auto; min-width: 0; padding: 12px 14px; border-bottom: 1px solid var(--line); background: var(--panel); }
+      tbody { gap: 12px; }
+      tr[data-row] { grid-template-columns: 1fr; grid-template-areas: "feature" "existing" "change" "decision" "priority" "note"; }
+      tr[data-row] td, tr[data-row] td:first-child { padding: 12px 14px; border-right: 0; border-bottom: 1px solid var(--line); }
       tr[data-row] td:first-child { background: var(--blue-soft); }
       tr[data-row] td:last-child { border-bottom: 0; }
-      tr[data-row] td:nth-child(2)::before, tr[data-row] td:nth-child(3)::before, tr[data-row] td:nth-child(4)::before, tr[data-row] td:nth-child(5)::before, tr[data-row] td:nth-child(6)::before { display: block; margin-bottom: 5px; color: var(--muted); font-size: 11px; font-weight: 700; }
-      tr[data-row] td:nth-child(2)::before { content: "现有能力"; }
-      tr[data-row] td:nth-child(3)::before { content: "年轻乳腺癌需要增加或修改"; }
-      tr[data-row] td:nth-child(4)::before { content: "专家判断"; }
-      tr[data-row] td:nth-child(5)::before { content: "优先级"; }
-      tr[data-row] td:nth-child(6)::before { content: "专家备注"; }
-      .cell-copy { max-width: none; }
       .decision-list { grid-template-columns: repeat(2, minmax(0, 1fr)); min-width: 0; }
-      .priority-select, .note-field { width: 100%; min-width: 0; }
       tr.group-row { display: block; border: 0; box-shadow: none; background: transparent; }
       tr.group-row td, tr.group-row td:first-child { display: block; padding: 18px 0 5px; border: 0; background: transparent; }
       tr.group-row:first-child td { padding-top: 4px; }
-      .empty-row { display: table-row !important; border: 0 !important; box-shadow: none !important; }
-      .empty-row td { display: table-cell !important; padding: 22px !important; background: var(--panel) !important; }
+      .empty-row { display: block !important; border: 0 !important; box-shadow: none !important; }
+      .empty-row td { display: block !important; padding: 22px !important; background: var(--panel) !important; }
     }
     @media (max-width: 620px) {
       .topbar-inner, .shell { padding-left: 16px; padding-right: 16px; }
@@ -188,6 +189,7 @@
       th { position: static; }
       th:first-child, td:first-child { position: static; }
       table { min-width: 0; font-size: 10px; }
+      tr[data-row] { break-inside: avoid; box-shadow: none; border-radius: 0; }
       th, td { padding: 6px; }
       .cell-copy { min-width: 0; max-width: none; }
       .decision-list { display: block; min-width: 0; }
@@ -254,7 +256,7 @@
     </section>
 
     <section class="decision-section" id="decision-table">
-      <div class="section-heading"><div><div class="eyebrow">Decision table</div><h2>功能逐项决策</h2></div><p>桌面端显示完整表格；手机端自动拆分为纵向卡片。每项判断、优先级和备注都会进入导出文件。</p></div>
+      <div class="section-heading"><div><div class="eyebrow">Decision cards</div><h2>功能逐项决策</h2></div><p>每项功能独立成卡片，专家可以直接完成判断、优先级和备注；所有结果都会进入导出文件。</p></div>
       <p class="table-tip">“现有可用”是基于当前附件功能的初步判断，专家可以直接改成自己的意见。</p>
       <div class="table-wrap">
         <table id="decision-table-grid">
