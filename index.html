@@ -54,27 +54,35 @@
     .skip-link:focus { top: 12px; }
     .shell { max-width: var(--max); margin: 0 auto; padding: 0 24px 72px; }
     .topbar {
-      position: sticky; top: 0; z-index: 10;
-      border-bottom: 1px solid rgba(228, 231, 238, .92);
-      background: rgba(251, 250, 247, .92);
-      backdrop-filter: blur(16px);
+      position: fixed; inset: 0 auto 0 0; z-index: 10; width: 248px;
+      border-right: 1px solid #273747;
+      background: #182431;
+      color: #fff;
     }
     .topbar-inner {
-      max-width: var(--max); margin: 0 auto; padding: 13px 24px;
-      display: flex; align-items: center; justify-content: space-between; gap: 18px;
+      height: 100%; max-width: none; margin: 0; padding: 28px 16px 20px;
+      display: flex; flex-direction: column; align-items: stretch; gap: 18px;
     }
-    .brand { display: flex; align-items: center; gap: 11px; font-weight: 700; color: var(--ink); white-space: nowrap; }
+    .brand { display: flex; align-items: center; gap: 11px; color: #fff; font-weight: 700; white-space: normal; line-height: 1.35; }
     .brand-mark { width: 32px; height: 32px; display: grid; place-items: center; }
     .brand-mark img { width: 32px; height: 32px; display: block; }
-    .nav { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
+    .nav { display: flex; flex: 1; flex-direction: column; gap: 5px; overflow: visible; }
     .nav::-webkit-scrollbar { display: none; }
     .nav button {
-      border: 0; background: transparent; color: var(--muted); padding: 8px 11px;
-      border-radius: 10px; cursor: pointer; white-space: nowrap;
+      width: 100%; display: grid; grid-template-columns: 30px 1fr; align-items: center; gap: 9px;
+      border: 1px solid transparent; background: transparent; color: #b8c3cd; padding: 9px 10px;
+      border-radius: 12px; cursor: pointer; text-align: left; white-space: nowrap; font-size: 13px;
     }
-    .nav button:hover, .nav button.active { color: var(--plum-dark); background: var(--plum-soft); }
-    .nav-report { display: inline-flex; align-items: center; padding: 8px 12px; border-radius: 10px; color: #fff; background: var(--plum); white-space: nowrap; font-size: 13px; font-weight: 700; }
-    .nav-report:hover { color: #fff; background: var(--plum-dark); text-decoration: none; }
+    .nav button:hover { color: #fff; background: #223342; }
+    .nav button.active { color: #fff; background: #263949; border-color: #31495b; }
+    .nav-icon { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 9px; color: #9cacb9; background: #223342; font-family: "Segoe UI Symbol", "Arial Unicode MS", sans-serif; font-size: 16px; line-height: 1; }
+    .nav button.active .nav-icon { color: var(--plum-dark); background: #f7e9ef; }
+    .nav button:hover .nav-icon { color: #fff; background: #315066; }
+    .nav-report { display: grid; grid-template-columns: 30px 1fr; align-items: center; gap: 9px; margin-top: 4px; padding: 9px 10px; border: 1px solid #31495b; border-radius: 12px; color: #d9e2e9; background: #20313f; white-space: nowrap; font-size: 13px; font-weight: 700; }
+    .nav-report:first-of-type { margin-top: auto; }
+    .nav-report:hover { color: #fff; background: #2a4354; text-decoration: none; }
+    .nav-report .nav-icon { color: #d9a4bb; background: #3a2b38; }
+    .nav-report:hover .nav-icon { color: var(--plum-dark); background: #f7e9ef; }
     .eyebrow { color: var(--plum); text-transform: uppercase; letter-spacing: .12em; font-size: 12px; font-weight: 700; }
     .hero { padding: 72px 0 38px; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(300px, .75fr); gap: 44px; align-items: end; }
     h1, h2, h3, p { margin: 0; }
@@ -240,7 +248,20 @@
     .source-item { break-inside: avoid; margin-bottom: 10px; color: var(--muted); font-size: 13px; }
     footer { padding-top: 30px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
     .mobile-only { display: none; }
+    @media (min-width: 881px) {
+      body { padding-left: 248px; }
+      .topbar-inner { overflow-y: auto; }
+    }
     @media (max-width: 880px) {
+      body { padding-left: 0; }
+      .topbar { position: sticky; inset: auto; width: auto; height: auto; border-right: 0; border-bottom: 1px solid #273747; }
+      .topbar-inner { height: auto; padding: 12px 24px; flex-direction: row; align-items: center; gap: 18px; }
+      .brand { flex: 0 0 auto; white-space: nowrap; }
+      .nav { flex: 1; flex-direction: row; gap: 6px; overflow-x: auto; }
+      .nav button, .nav-report { width: auto; display: inline-flex; flex: 0 0 auto; grid-template-columns: none; gap: 7px; padding: 8px 10px; }
+      .nav button.active { background: #31495b; }
+      .nav-icon { width: 23px; height: 23px; border-radius: 7px; font-size: 14px; }
+      .nav-report:first-of-type { margin-top: 4px; }
       .hero, .model-layout, .follow-panel, .care-layout { grid-template-columns: 1fr; }
       .ai-layout { grid-template-columns: 1fr; }
       .hero { padding-top: 52px; gap: 28px; }
@@ -249,6 +270,7 @@
     }
     @media (max-width: 620px) {
       .shell, .topbar-inner { padding-left: 16px; padding-right: 16px; }
+      .topbar-inner { align-items: flex-start; }
       .brand-text { display: none; }
       .hero { padding-top: 42px; }
       h1 { font-size: 43px; }
@@ -271,17 +293,17 @@
     <div class="topbar-inner">
       <a class="brand" href="#overview"><span class="brand-mark"><img src="breast-cancer-ribbon-mark.svg" alt=""></span><span class="brand-text">年轻乳腺癌研究地图</span></a>
       <nav class="nav" aria-label="页面导航">
-        <button class="active" data-target="overview">总览</button>
-        <button data-target="audience">研究入口</button>
-        <button data-target="clinical-ai">临床全程 + AI</button>
-        <button data-target="questions">研究问题</button>
-        <button data-target="model">模型设计</button>
-        <button data-target="followup">随访策略</button>
-        <button data-target="ai-followup">AI 随访端</button>
-        <button data-target="roadmap">路线图</button>
-        <button data-target="evidence">证据</button>
-        <a class="nav-report" href="young-breast-cancer-consensus.html">共识流程报告 ↗</a>
-        <a class="nav-report" href="young-breast-cancer-product-decision.html">专家决策表 ↗</a>
+        <button class="active" data-target="overview"><span class="nav-icon" aria-hidden="true">⌂</span><span>总览</span></button>
+        <button data-target="audience"><span class="nav-icon" aria-hidden="true">◎</span><span>研究入口</span></button>
+        <button data-target="clinical-ai"><span class="nav-icon" aria-hidden="true">✚</span><span>临床全程 + AI</span></button>
+        <button data-target="questions"><span class="nav-icon" aria-hidden="true">?</span><span>研究问题</span></button>
+        <button data-target="model"><span class="nav-icon" aria-hidden="true">◇</span><span>模型设计</span></button>
+        <button data-target="followup"><span class="nav-icon" aria-hidden="true">↻</span><span>随访策略</span></button>
+        <button data-target="ai-followup"><span class="nav-icon" aria-hidden="true">✦</span><span>AI 随访端</span></button>
+        <button data-target="roadmap"><span class="nav-icon" aria-hidden="true">→</span><span>路线图</span></button>
+        <button data-target="evidence"><span class="nav-icon" aria-hidden="true">▤</span><span>证据</span></button>
+        <a class="nav-report" href="young-breast-cancer-consensus.html"><span class="nav-icon" aria-hidden="true">▥</span><span>共识流程报告 ↗</span></a>
+        <a class="nav-report" href="young-breast-cancer-product-decision.html"><span class="nav-icon" aria-hidden="true">☑</span><span>专家决策表 ↗</span></a>
       </nav>
     </div>
   </header>
