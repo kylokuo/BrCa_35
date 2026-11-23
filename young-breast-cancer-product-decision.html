@@ -130,6 +130,30 @@
       .summary { grid-template-columns: repeat(2, 1fr); }
       .final-panel { grid-template-columns: 1fr; }
     }
+    @media (max-width: 760px) {
+      .table-wrap { overflow: visible; border: 0; background: transparent; box-shadow: none; }
+      table { display: block; min-width: 0; }
+      thead { display: none; }
+      tbody { display: grid; gap: 12px; }
+      tr[data-row] { display: grid; grid-template-columns: 1fr; overflow: hidden; border: 1px solid var(--line); border-radius: 15px; background: var(--panel); box-shadow: var(--shadow); }
+      tr[data-row] td, tr[data-row] td:first-child { position: static; display: block; width: auto; min-width: 0; padding: 12px 14px; border-bottom: 1px solid var(--line); background: var(--panel); }
+      tr[data-row] td:first-child { background: var(--blue-soft); }
+      tr[data-row] td:last-child { border-bottom: 0; }
+      tr[data-row] td:nth-child(2)::before, tr[data-row] td:nth-child(3)::before, tr[data-row] td:nth-child(4)::before, tr[data-row] td:nth-child(5)::before, tr[data-row] td:nth-child(6)::before { display: block; margin-bottom: 5px; color: var(--muted); font-size: 11px; font-weight: 700; }
+      tr[data-row] td:nth-child(2)::before { content: "现有能力"; }
+      tr[data-row] td:nth-child(3)::before { content: "年轻乳腺癌需要增加或修改"; }
+      tr[data-row] td:nth-child(4)::before { content: "专家判断"; }
+      tr[data-row] td:nth-child(5)::before { content: "优先级"; }
+      tr[data-row] td:nth-child(6)::before { content: "专家备注"; }
+      .cell-copy { max-width: none; }
+      .decision-list { grid-template-columns: repeat(2, minmax(0, 1fr)); min-width: 0; }
+      .priority-select, .note-field { width: 100%; min-width: 0; }
+      tr.group-row { display: block; border: 0; box-shadow: none; background: transparent; }
+      tr.group-row td, tr.group-row td:first-child { display: block; padding: 18px 0 5px; border: 0; background: transparent; }
+      tr.group-row:first-child td { padding-top: 4px; }
+      .empty-row { display: table-row !important; border: 0 !important; box-shadow: none !important; }
+      .empty-row td { display: table-cell !important; padding: 22px !important; background: var(--panel) !important; }
+    }
     @media (max-width: 620px) {
       .topbar-inner, .shell { padding-left: 16px; padding-right: 16px; }
       .brand-text { display: none; }
@@ -225,7 +249,7 @@
     </section>
 
     <section class="decision-section" id="decision-table">
-      <div class="section-heading"><div><div class="eyebrow">Decision table</div><h2>功能逐项决策</h2></div><p>桌面端可横向浏览全部字段；手机端可左右滑动表格。每项判断、优先级和备注都会进入导出文件。</p></div>
+      <div class="section-heading"><div><div class="eyebrow">Decision table</div><h2>功能逐项决策</h2></div><p>桌面端显示完整表格；手机端自动拆分为纵向卡片。每项判断、优先级和备注都会进入导出文件。</p></div>
       <p class="table-tip">“现有可用”是基于当前附件功能的初步判断，专家可以直接改成自己的意见。</p>
       <div class="table-wrap">
         <table id="decision-table-grid">
