@@ -125,8 +125,14 @@
     .choice:hover { border-color: var(--blue); color: var(--blue-dark); background: var(--blue-soft); }
     .choice:has(input:checked) { border-color: var(--blue); color: var(--blue-dark); background: var(--blue-soft); font-weight: 700; }
     .choice input { margin: 0; accent-color: var(--blue); }
-    .priority-select { width: 100%; min-width: 0; padding: 7px 8px; border: 1px solid var(--line); border-radius: 8px; color: var(--ink); background: #fbfcfd; }
-    .priority-select:focus { border-color: var(--blue); outline: 3px solid rgba(45, 98, 138, .14); }
+    .priority-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5px; min-width: 0; }
+    .priority-choice { --priority-color: var(--muted); --priority-bg: #fbfcfd; --priority-line: var(--line); display: flex; align-items: center; gap: 4px; min-height: 29px; padding: 4px 5px; border: 1px solid var(--priority-line); border-radius: 8px; color: var(--priority-color); background: var(--priority-bg); cursor: pointer; font-size: 12px; line-height: 1.25; }
+    .priority-choice.priority-p0 { --priority-color: var(--danger); --priority-bg: #fff0ef; --priority-line: #e8c7c4; }
+    .priority-choice.priority-p1 { --priority-color: var(--gold); --priority-bg: var(--gold-soft); --priority-line: #ead5b5; }
+    .priority-choice.priority-p2 { --priority-color: var(--green); --priority-bg: var(--green-soft); --priority-line: #b9ddce; }
+    .priority-choice:hover { border-color: var(--priority-color); }
+    .priority-choice:has(input:checked) { border-color: var(--priority-color); box-shadow: inset 0 0 0 1px var(--priority-color); font-weight: 700; }
+    .priority-choice input { margin: 0; accent-color: var(--priority-color); }
     .note-field { width: 100%; min-width: 0; min-height: 68px; resize: vertical; line-height: 1.45; }
     .empty-row { display: block; border: 1px solid var(--line); border-radius: 15px; background: var(--panel); }
     .empty-row td { display: block; padding: 22px; color: var(--muted); text-align: center; background: #fbfcfd; }
@@ -153,7 +159,7 @@
       tr[data-row] td, tr[data-row] td:first-child { padding: 12px 14px; border-right: 0; border-bottom: 1px solid var(--line); }
       tr[data-row] td:first-child { background: var(--blue-soft); }
       tr[data-row] td:last-child { border-bottom: 0; }
-      .decision-list { grid-template-columns: repeat(2, minmax(0, 1fr)); min-width: 0; }
+      .decision-list, .priority-list { grid-template-columns: repeat(2, minmax(0, 1fr)); min-width: 0; }
       tr.group-row { display: block; border: 0; box-shadow: none; background: transparent; }
       tr.group-row td, tr.group-row td:first-child { display: block; padding: 18px 0 5px; border: 0; background: transparent; }
       tr.group-row:first-child td { padding-top: 4px; }
@@ -195,6 +201,9 @@
       .decision-list { display: block; min-width: 0; }
       .choice { display: inline-flex; min-height: 0; padding: 2px 4px; border: 0; background: transparent; }
       .choice:not(:has(input:checked)) { display: none; }
+      .priority-list { display: block; min-width: 0; }
+      .priority-choice { display: inline-flex; min-height: 0; padding: 2px 4px; border: 0; background: transparent; }
+      .priority-choice:not(:has(input:checked)) { display: none; }
       .note-field { min-width: 0; min-height: 36px; border: 0; padding: 0; background: transparent; }
       .final-panel { margin-top: 8px; padding: 10px; }
     }
@@ -300,10 +309,41 @@
       const storageKey = 'brca40-product-decision-v1';
       const rows = [...document.querySelectorAll('[data-row]')];
       const judgmentLabels = { reuse: '沿用', modify: '修改', add: '新增', hold: '暂缓' };
+      const priorityOptions = [
+        { value: '', label: '未定', className: 'priority-undecided' },
+        { value: 'P0', label: 'P0', className: 'priority-p0' },
+        { value: 'P1', label: 'P1', className: 'priority-p1' },
+        { value: 'P2', label: 'P2', className: 'priority-p2' }
+      ];
       let activeFilter = 'all';
 
       const $ = (selector) => document.querySelector(selector);
       const $$ = (selector) => [...document.querySelectorAll(selector)];
+
+      function upgradePriorityControls() {
+        rows.forEach((row) => {
+          const select = row.querySelector('.priority-select');
+          if (!select) return;
+          const list = document.createElement('div');
+          list.className = 'priority-list';
+          list.setAttribute('role', 'radiogroup');
+          list.setAttribute('aria-label', select.getAttribute('aria-label') || '优先级');
+          priorityOptions.forEach((option) => {
+            const label = document.createElement('label');
+            label.className = 'priority-choice ' + option.className;
+            const input = document.createElement('input');
+            input.className = 'priority-radio';
+            input.type = 'radio';
+            input.name = 'priority-' + row.dataset.id;
+            input.value = option.value;
+            input.checked = option.value === '';
+            input.setAttribute('aria-label', option.label);
+            label.append(input, option.label);
+            list.append(label);
+          });
+          select.replaceWith(list);
+        });
+      }
 
       function rowState(row) {
         return {
@@ -312,7 +352,7 @@
           current: row.children[1].textContent.trim(),
           added: row.children[2].textContent.trim(),
           judgment: row.querySelector('input[type="radio"]:checked')?.value || '',
-          priority: row.querySelector('.priority-select').value,
+          priority: row.querySelector('.priority-radio:checked')?.value || '',
           note: row.querySelector('.note-field').value.trim()
         };
       }
@@ -342,7 +382,9 @@
             const saved = state.rows?.[row.dataset.id];
             if (!saved) return;
             if (saved.judgment) { const input = row.querySelector('input[value="' + CSS.escape(saved.judgment) + '"]'); if (input) input.checked = true; }
-            row.querySelector('.priority-select').value = saved.priority || '';
+            const priority = saved.priority || '';
+            const priorityInput = row.querySelector('.priority-radio[value="' + CSS.escape(priority) + '"]');
+            if (priorityInput) priorityInput.checked = true;
             row.querySelector('.note-field').value = saved.note || '';
           });
         } catch (error) {
@@ -456,6 +498,7 @@
       $('[data-action="print"]').addEventListener('click', () => window.print());
       $('[data-action="reset"]').addEventListener('click', () => { if (!window.confirm('确定清除本机保存的全部评审内容吗？')) return; localStorage.removeItem(storageKey); window.location.reload(); });
 
+      upgradePriorityControls();
       loadState();
       updateSummary();
       applyFilter();
